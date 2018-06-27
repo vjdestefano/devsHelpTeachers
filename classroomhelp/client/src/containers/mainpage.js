@@ -13,6 +13,10 @@ class testButton extends Component {
     open: false,
   }
 
+  // grades = ["K-2", "3-7", "8-12"];
+
+ 
+
   handleOnChange = event => {
     const { name, value } = event.target;
 
@@ -39,30 +43,44 @@ class testButton extends Component {
   render(){
 
     const variableStats = {
-      timeout: 4000
+      timeout: 500000
     }
+
+   
+
+
 
     return(
     
     <div className = 'container-fluid'>
     
-      <button  className = 'btn col-sm-2' onClick={() => this.setState({ open: !this.state.open })}>
-        click
-      </button>
-      <Collapse in={this.state.open} timeout = {variableStats.timeout}>
-        <div>
-         <p>This will be reference points for the user</p>
-        </div>
-      </Collapse>
-    
 
-      <div className = 'col-md-8' id = 'introMain'>
+      <div className = 'row'>
+        <div className = 'col-sm-2'>
+          <ul>
+          <li  style= {{listStyleType:"none"}}><button  className = 'btn col-sm-12' onClick={() => this.setState({ open: !this.state.open })}>
+              click
+              </button>
+            <Collapse in={this.state.open} timeout = {variableStats.timeout}>
+            <div>
+              <p>This will be reference points for the user</p>
+            </div>
+            </Collapse></li>
+            
+          </ul>
+          
+          
+            </div>
+        
+
+        <div className = 'col-md-8' id = 'introMain'>
       <p> 
         
         Welcome to Teacher's Wish List, a place for all of your needs. Here we have ways for teachers to help
         students accomplish goals and to improve a students experience with their learning career.
         
       </p>
+        </div>
       </div>
 
       <div className = 'col-5'>
