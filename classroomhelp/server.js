@@ -24,8 +24,9 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-mongoose.Promise = Promise;
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/schoolZone");
+
+// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/schoolZone");
+mongoose.connect("mongodb://localhost/schoolZone");
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> Server now on port ${PORT}!`);
