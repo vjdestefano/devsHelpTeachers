@@ -1,6 +1,6 @@
 const router = require("express").Router();
 // const scrapeController = require("../../../controler/scraperController");
-const scraper = require("../../../models/ScraperData")
+const ScraperData = require("../../../models/ScraperData")
 const path = require("path");
 
 const cheerio = require("cheerio");
@@ -23,9 +23,15 @@ router
         var $ = cheerio.load(response.data);
 
             // Now, we grab every h2 within an article tag, and do the following:
-            $("a.Title-may-blank").each(function (i, element) {
+            $("a.title-may-blank").each(function (i, element) {
               // Save an empty result object
-              let result = {};
+              const result = {
+            this:"is a test",
+            that: "is really not cool",
+            test123: "this doesn't work"
+            };
+
+            console.log(result);
         
               // Add the text and href of every link, and save them as properties of the result object
               result.title = $(element).text();
@@ -33,10 +39,8 @@ router
               result.link = $(element).attr("data-outbound-url");
         
               // Create a new Article using the `result` object built from scraping
-              scraper.Scraper.create(result)
+              ScraperData.Scrape.create(result)
                 .then(function (dbArticle) {
-
-                 console.log(result);
                   
                  console.log(dbArticle);
                 })
@@ -50,18 +54,5 @@ router
             res.send("scrape complete");
           })
         })
-// //this is connected to the  scrape controller!
-// // Matches with "/api/articles"
-// router
-//   .route("/:search")
-//   .get(scrapeController.findAll)
-//   .post(scrapeController.create);
-
-// // Matches with "/api/articles/:id"
-// router
-//   .route("/:id")
-//   .get(scrapeController.findById)
-//   .put(scrapeController.update)
-//   .delete(scrapeController.remove);
 
 module.exports = router;
