@@ -1,6 +1,6 @@
 const router = require("express").Router();
 // const scrapeController = require("../../../controler/scraperController");
-const ScraperData = require("../../../models/ScraperData")
+const Scrape = require("../../../models/ScraperData")
 const path = require("path");
 
 const cheerio = require("cheerio");
@@ -21,38 +21,42 @@ router
       .then(function (response) {
 
         var $ = cheerio.load(response.data);
-
+        console.log("this hit the cheerio")
             // Now, we grab every h2 within an article tag, and do the following:
-            $("a.title-may-blank").each(function (i, element) {
+            $("p.title").each(function (i, element) {
+              console.log("found element on the site")
               // Save an empty result object
-              const result = {
-            this:"is a test",
-            that: "is really not cool",
-            test123: "this doesn't work"
-            };
+              const result = {};
 
             console.log(result);
         
               // Add the text and href of every link, and save them as properties of the result object
-              result.title = $(element).text();
+              result.title = $(element).children().text();
         
-              result.link = $(element).attr("data-outbound-url");
+              result.link = $(element).children().attr("data-outbound-url");
+
+              result.search = $(element).children().attr("data-subreddit");
         
               // Create a new Article using the `result` object built from scraping
-              ScraperData.Scrape.create(result)
+              Scrape.create(result)
                 .then(function (dbArticle) {
                   
                  console.log(dbArticle);
+                  if (i = $("a").length) {
+                    res.send("scrape complete");
+                  }
                 })
-                .catch(function (err) {
-                  // If an error occurred, send it to the client
-                  return res.json(err);
-                });
+                
             });
         
             // If we were able to successfully scrape and save an Article, send a message to the client
-            res.send("scrape complete");
-          })
+          }).catch(function (err) {
+            // If an error occurred, send it to the client
+            return res.json(err);
+          });
         })
+
+
+
 
 module.exports = router;

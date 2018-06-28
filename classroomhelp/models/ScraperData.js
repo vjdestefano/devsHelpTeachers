@@ -5,11 +5,11 @@ const Schema = mongoose.Schema;
 const scraperSchema = new Schema({
   search: { 
     type: String, 
-    required: true 
+    // required: true 
   },
   title: {
     type: String,
-    required: true
+    // required: true
   },
   picture: { 
     type: String,
