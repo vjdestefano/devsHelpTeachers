@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import API from "../utilities/API";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Collapse from 'react-bootstrap/lib/Collapse';
+
 class testButton extends Component { 
 
 
@@ -12,9 +13,6 @@ class testButton extends Component {
     end_date: "",
     open: false,
   }
-
-  // grades = ["K-2", "3-7", "8-12"];
-
  
 
   handleOnChange = event => {
@@ -37,6 +35,12 @@ class testButton extends Component {
       })
     })
     .catch(err => console.log(err))
+  }
+
+
+  getUser = event => {
+    event.preventDefault();
+
   }
 
 
@@ -111,6 +115,7 @@ class testButton extends Component {
       
       
       <button type="button" className="btn btn-danger" onClick = {this.articleSearch} >get response</button>
+      <button type="button" className="btn btn-secondary" onClick = {this.articleSearch} >get response</button>
       
       </div>
     )
