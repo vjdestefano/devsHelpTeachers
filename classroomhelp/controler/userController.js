@@ -1,10 +1,10 @@
-const User = require("../models/user");
-const SQL = require("mysql2");
+const users = require("../models/user");
+
 
 // Defining methods for the test model
 module.exports = {
   findAll: function (req, res) {
-    User
+    users
       .find(req.query)
       .sort({
         date: -1
@@ -14,15 +14,17 @@ module.exports = {
   },
 
   registerNewUser: function (req, res) {
+
+    // console.log(users.create);
     console.log(req.body);
-    User.users.create({
+    users.create({
      
         email: req.body.email,
         password: req.body.password,
       })
       .then(() => User.users.findOrCreate({
         where: {
-          email: req.body
+          email: req.body.email
         },
       }))
       .spread((users, created) => {

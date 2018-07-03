@@ -21,8 +21,8 @@ export default {
   saveArticles: function(articles) {
     return axios.post("/api/articles", articles);
   },
-  registerNewUser: function(query){
-    return axios.post("/api/userreg/uobj", {params: query})
+  registerNewUser: function(info){
+    return axios.post("/api/userreg/uobj", info)
   }
 };
 
