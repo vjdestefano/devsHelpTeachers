@@ -8,7 +8,7 @@ state = {
   user:'',
   password:'',
   password2:'',
-  loggedIn: false,
+  
 }
  
 
@@ -28,24 +28,28 @@ handleChange = event => {
 
 
 register(event){
-  event.preventDefault();
-    if (this.state.password === !this.state.password2) {
+  // event.preventDefault();
+  // onSubmit="return false;"
+ event.onSubmit(event.preventDefault);
+    if (!this.state.password === this.state.password2) {
       alert("make sure your passwords match!");
     } else if ((this.state.password.length || this.state.password2.length )< 6) {
       alert(
         `Choose a more secure password ${this.state.user}`
       );
     } else {
+      console.log("before register")
       API.registerNewUser({
         email: this.state.user, password: this.state.password
       })
+      console.log("after register")
     }
 
     this.setState({
       user: "",
       password2: "",
       password: "",
-      loggedIn: true,
+      
     });
 
   
@@ -73,7 +77,7 @@ render(){
   <input type="text" name="password2" value={this.state.password2} onChange = {this.handleChange} />
   <br />
   
-  <input type="submit" value="Submit" onSubmit = {this.register} />
+  <input type="submit" value="Submit" onClick = {this.register} />
 
     </form>
   </div>

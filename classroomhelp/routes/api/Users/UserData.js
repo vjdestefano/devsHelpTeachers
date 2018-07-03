@@ -9,10 +9,10 @@ router
   .get(userController.findAll)
   
 // Matches with "/api/articles/:id"
-router
-  .route("/:test")
-  .get(userController.findById)
-  .put(userController.update)
+// router
+//   .route("/:test")
+//   .get(userController.findById)
+//   .put(userController.update)
   
 
   router.route("/uobj").post(userController.registerNewUser);

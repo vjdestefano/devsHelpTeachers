@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const SQL = require("mysql");
+const SQL = require("mysql2");
 
 // Defining methods for the test model
 module.exports = {
@@ -14,15 +14,18 @@ module.exports = {
   },
 
   registerNewUser: function (req, res) {
-    User.create({
-        email: req.query
+    console.log(req.body);
+    User.users.create({
+     
+        email: req.body.email,
+        password: req.body.password,
       })
-      .then(() => User.findOrCreate({
+      .then(() => User.users.findOrCreate({
         where: {
-          email: req.query
+          email: req.body
         },
       }))
-      .spread((user, created) => {
+      .spread((users, created) => {
         console.log(user.get({
           plain: true
         }))

@@ -22,6 +22,9 @@ export default {
     return axios.post("/api/articles", articles);
   },
   registerNewUser: function(query){
-    return axios.post("/api/userreg/uobj")
+    return axios.post("/api/userreg/uobj", {params: query})
   }
 };
+
+
+//API.utils -> API -> controller -> models
