@@ -4,7 +4,7 @@ const Articles = require("../models/testModel");
 module.exports = {
   findAll: function (req, res) {
     Articles
-      .findAll()
+      .find()
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

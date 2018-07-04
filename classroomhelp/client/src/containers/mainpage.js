@@ -26,7 +26,7 @@ class testButton extends Component {
   articleSearch = event => {
     event.preventDefault();
     API.getAllArt({
-      q: this.state.q
+     
     }).then(res => {
       console.log(res.data);
       this.setState({
