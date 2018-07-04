@@ -1,13 +1,12 @@
 const router = require("express").Router();
-const articleController = require("../../../controler/articleControler");
+const articleController = require("../../../controler/articleController");
 
 
 //this is connected to the  article controller!
 // Matches with "/api/articles"
 router
   .route("/")
-  .get(articleController.findAll)
-  .post(articleController.create);
+  .get(articleController.findAll);
 
 // Matches with "/api/articles/:id"
 router
