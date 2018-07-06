@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 import API from "../utilities/API";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Collapse from "react-bootstrap/lib/Collapse";
 
 class testButton extends Component {
   state = {
     articles: [],
-    q: "",
-    begin_date: "",
-    end_date: "",
     searchBarView: "hidden",
     open: false
   };
@@ -29,9 +26,23 @@ class testButton extends Component {
         console.log(res.data);
         this.setState({
           articles: res.data,
-          testArt: res.data[0].title.toLowerCase(),
           q: "",
-          searchBarView: ""
+          searchBarView: "",
+        });
+      })
+      .catch(err => console.log(err));
+  };
+
+  literacySearch = event => {
+    event.preventDefault();
+    console.log("im here before API");
+    API.literacyLinks()
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          articles: res.data,
+          q: "",
+          searchBarView: "",
         });
       })
       .catch(err => console.log(err));
@@ -42,8 +53,10 @@ class testButton extends Component {
 
     const { name, value } = event.target;
     console.log(value);
+    //gets values from inputs
 
     let list = this.state.articles;
+    //sets the list that is going to be filtered
 
     let result = [];
     result = list.filter(a => {
@@ -51,6 +64,7 @@ class testButton extends Component {
     });
     this.setState({ articles: result });
   };
+
 
   render() {
     const variableStats = {
@@ -119,7 +133,7 @@ class testButton extends Component {
         <div className="col-md-8">
           <form className="form-inline">
             <input
-              className="form-control mr-sm-2"
+              className="form-control mr-sm-8"
               type="text"
               placeholder="Search"
               onChange={this.filterList}
@@ -131,8 +145,12 @@ class testButton extends Component {
                   key={article._id}
                   className="list-group-item d-flex justify-content-between align-items-center"
                   style={inlineStyle}
+                  // onClick = {this.linkClick}
                 >
-                  {`Title: ${article.title}`}
+                  {`Title: ${article.title}`} <br />
+                  {`Link to the site: ${article.link}`}<br />
+                  <span
+                    className="badge badge-danger badge-pill"><a href = {article.link}> here is the link </a></span>
                   {/* <span
                         className="badge badge-primary badge-pill"
                         onClick={() => this.saveArticle(article._id)}>Save Article</span> */}
@@ -152,9 +170,9 @@ class testButton extends Component {
         <button
           type="button"
           className="btn btn-secondary"
-          onClick={this.articleSearch}
+          onClick={this.literacySearch}
         >
-          get response
+          get Wiki Literacy Links
         </button>
       </div>
     );

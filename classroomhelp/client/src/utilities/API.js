@@ -8,6 +8,10 @@ export default {
     return axios.get("/api/search/find");
   },
 
+  literacyLinks: function(){
+    return axios.get("api/search/findlit")
+  },
+
   articleSearch: function(query) {
     return axios.get("/api/articles", {params: query})
   },
