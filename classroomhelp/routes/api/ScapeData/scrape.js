@@ -1,5 +1,5 @@
 const router = require("express").Router();
-// const scrapeController = require("../../../controler/scraperController");
+const scraperController = require("../../../controler/scraperController");
 const Scrape = require("../../../models/ScraperData")
 const path = require("path");
 
@@ -7,12 +7,13 @@ const cheerio = require("cheerio");
 const axios = require("axios");
 const mongoose = require("mongoose");
 
+
 mongoose.connect("mongodb://localhost/schoolZone");
 
 
 
 router
-  .route("/")
+  .route("/scrape")
   .get(function (req, res) {
     console.log(req.query);
     
@@ -42,7 +43,7 @@ router
                 .then(function (dbArticle) {
                   
                  console.log(dbArticle);
-                  if (i = $("a").length) {
+                  if (i === $("a").length) {
                     res.send("scrape complete");
                   }
                 })
@@ -54,7 +55,18 @@ router
             // If an error occurred, send it to the client
             return res.json(err);
           });
-        })
+
+
+
+
+  
+        
+        });
+
+
+        router
+        .route("/find")
+        .get(scraperController.getAllScrapes);
 
 
 

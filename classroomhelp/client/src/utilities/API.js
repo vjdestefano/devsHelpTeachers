@@ -2,8 +2,10 @@ import axios from "axios";
 
 export default {
   // Gets all books
-  getAllArt: function(){
-    return axios.get("/api/articles");
+  getAllScrapes: function(){
+
+    console.log("i hit the articles Axios")
+    return axios.get("/api/search/find");
   },
 
   articleSearch: function(query) {

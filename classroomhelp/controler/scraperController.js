@@ -1,7 +1,7 @@
 const Scraper = require("../models/ScraperData");
 
 module.exports = {
-  findAll: function (req, res) {
+  getAllScrapes: function (req, res) {
     Scraper
       .find(req.query)
       .sort({ date: -1 })

@@ -3,9 +3,12 @@ const Articles = require("../models/testModel");
 // Defining methods for the test model
 module.exports = {
   findAll: function (req, res) {
+    console.log("im down at your article controller function")
     Articles
-      .find()
-      .then(dbModel => res.json(dbModel))
+      .find({})
+      .sort({date: -1})
+      .then(dbModel => 
+        res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   findById: function (req, res) {
