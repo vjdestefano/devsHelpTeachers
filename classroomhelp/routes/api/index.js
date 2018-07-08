@@ -1,10 +1,10 @@
 const router = require("express").Router();
 const articleRoutes = require("./articles/articlesTest");
 const scrapeData = require("./ScapeData/scrape")
-const userData = require("./Users/UserData");
+// const userData = require("./Users/UserData");
 
 router.use("/articles", articleRoutes);
 router.use("/search", scrapeData);
-router.use("/userreg", userData);
+// router.use("/userreg", userData);
 
 module.exports = router;

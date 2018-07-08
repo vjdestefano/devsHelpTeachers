@@ -95,7 +95,7 @@ router
               .then(function (dbArticle) {
   
                 console.log(dbArticle);
-                if (i === $("a").length) {
+                if (i === 49) {
                   res.send("scrape support article 1 complete");
                 }
               })

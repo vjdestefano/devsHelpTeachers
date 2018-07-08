@@ -25,9 +25,6 @@ const scraperSchema = new Schema({
    
    
   },
-  link2Data:{
-    type: String,
-  },
   tag:{
     type:String,
   }

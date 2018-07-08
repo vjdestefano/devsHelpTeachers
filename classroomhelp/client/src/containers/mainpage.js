@@ -61,7 +61,8 @@ class testButton extends Component {
     //sets the list that is going to be filtered
 
     let result = [];
-    result = list.filter(a => {
+    // result = list.filter(a => {
+      result = list.filter(a => {
       return a.title.toLowerCase().search(value) != -1;
     });
     this.setState({ articles: result });
