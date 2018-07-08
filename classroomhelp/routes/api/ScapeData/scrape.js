@@ -74,25 +74,35 @@ router
         // Now, we grab every h2 within an article tag, and do the following:
         $("a.wiki_link_ext").each(function (i, element) {
         
+          
           // Save an empty result object
           const result = {};
 
-        // Add the text and href of every link, and save them as properties of the result object
-          result.title = $(element).children().text();
 
-          result.link = $(element).attr("href");
+          if(i < 49){
 
-          result.search = $(element).text();
+            result.title = $(element).text();
 
-          // Create a new Article using the `result` object built from scraping
-          ScrapeLiteracy.create(result)
-            .then(function (dbArticle) {
+             // Add the text and href of every link, and save them as properties of the result object
+            result.link = $(element).attr("href");
+  
+            result.content = $(element).parent("li").text();
+  
+            result.tag = "Literacy"
+  
+            // Create a new Article using the `result` object built from scraping
+            ScrapeLiteracy.create(result)
+              .then(function (dbArticle) {
+  
+                console.log(dbArticle);
+                if (i === $("a").length) {
+                  res.send("scrape support article 1 complete");
+                }
+              })
 
-              console.log(dbArticle);
-              if (i === $("a").length) {
-                res.send("scrape support article 1 complete");
-              }
-            })
+          }
+       
+         
 
         });
 
@@ -106,7 +116,7 @@ router
 
 
 router
-  .route("/find")
+  .route("/findreddit")
   .get(scraperController.getAllScrapes);
 
 router

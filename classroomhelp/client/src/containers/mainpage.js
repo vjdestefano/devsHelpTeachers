@@ -4,6 +4,8 @@ import API from "../utilities/API";
 import Collapse from "react-bootstrap/lib/Collapse";
 
 class testButton extends Component {
+
+  //articles translates to scrapes
   state = {
     articles: [],
     searchBarView: "hidden",
@@ -65,6 +67,12 @@ class testButton extends Component {
     this.setState({ articles: result });
   };
 
+  ifEmpty = obj =>{
+    if(obj.content.length === 0){
+      return true
+    } else return false
+  }
+
 
   render() {
     const variableStats = {
@@ -76,6 +84,8 @@ class testButton extends Component {
       color: "white",
       border: "5px"
     };
+
+    let string;
 
     return (
       <div className="container-fluid">
@@ -147,8 +157,14 @@ class testButton extends Component {
                   style={inlineStyle}
                   // onClick = {this.linkClick}
                 >
-                  {`Title: ${article.title}`} <br />
-                  {`Link to the site: ${article.link}`}<br />
+                  {`Title: ${article.title}`} 
+                  <br />
+                   
+                  {this.ifEmpty(article) ? "There is no Description for that link" : article.content}
+                  <br />
+                  
+                  {`Tagged: ${article.tag}`}
+                  <br />
                   <span
                     className="badge badge-danger badge-pill"><a href = {article.link}> here is the link </a></span>
                   {/* <span
@@ -160,13 +176,13 @@ class testButton extends Component {
           </form>
         </div>
 
-        <button
+        {/* <button
           type="button"
           className="btn btn-danger"
           onClick={this.articleSearch}
         >
           get reddit Response
-        </button>
+        </button> */}
         <button
           type="button"
           className="btn btn-secondary"

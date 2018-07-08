@@ -16,10 +16,18 @@ const Navbar = () => (
       </ul>
     </div>
     <div>
-      <form className="form-inline">
-        <input className="form-control mr-sm-2" type="text" placeholder="Search" />
-        <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
+      
+    <div className="dropdown">
+  <button className="btn btn-secondary dropdown-toggle"
+          type="button" id="dropdownMenu1" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+    Dropdown
+  </button>
+  <div className="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <a className="dropdown-item"  to = "/">home</a>
+    <a className="dropdown-item" href="/search/findreddit">Another action</a>
+  </div>
+</div>
     </div>
   </nav>
 )

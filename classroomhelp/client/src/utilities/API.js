@@ -5,7 +5,7 @@ export default {
   getAllScrapes: function(){
 
     console.log("i hit the articles Axios")
-    return axios.get("/api/search/find");
+    return axios.get("/api/search/findreddit");
   },
 
   literacyLinks: function(){
