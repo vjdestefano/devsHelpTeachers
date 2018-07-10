@@ -108,7 +108,7 @@ class testButton extends Component {
                     <p>This will be reference points for the user</p>
                   </div>
                 </Collapse>
-                
+
               </li>
             </ul>
           </div>
@@ -182,14 +182,11 @@ class testButton extends Component {
           </form>
         </div>
 
-        {/* <button
-          type="button"
-          className="btn btn-danger"
-          transitionTo ="/mathresources"
-        >
-          Math Page
-        </button> */}
+       
         <Link  type = "button" className = "btn btn-danger" to="/mathresources">MATH?</Link>
+
+        <Link  type = "button" className = "btn btn-success" to="/litresources">MATH?</Link>
+        
         <button
           type="button"
           className="btn btn-secondary"
