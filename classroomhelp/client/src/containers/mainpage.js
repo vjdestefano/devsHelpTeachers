@@ -11,8 +11,31 @@ class testButton extends Component {
   state = {
     articles: [],
     searchBarView: "hidden",
-    open: false
+    open: false,
+    username:"",
+    isLoggedIn: false,
   };
+
+  componentDidMount(){
+    this.loginCheck();
+  }
+
+  loginCheck = () => {
+    API
+      .loginCheck()
+      .then(res =>{
+        console.log(res);
+        this.setState({
+        isLoggedIn: res.data.isLoggedIn, username: res.data.username
+        })
+      }) 
+      .catch(err => {
+        console.log("this is an error")
+        console.log(err);
+        this.setState({isLoggedIn: false})
+      })
+  }
+
 
   handleOnChange = event => {
     const { name, value } = event.target;
@@ -21,6 +44,8 @@ class testButton extends Component {
       [name]: value
     });
   };
+
+ 
 
   articleSearch = event => {
     event.preventDefault();

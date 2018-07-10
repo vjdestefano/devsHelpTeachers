@@ -1,40 +1,50 @@
-// const users = require("../models/user");
 
+const User = require('../models/user');
 
-// // Defining methods for the test model
-// module.exports = {
-//   findAll: function (req, res) {
-//     users
-//       .find(req.query)
-//       .sort({
-//         date: -1
-//       })
-//       .then(dbModel => res.json(dbModel))
-//       .catch(err => res.status(422).json(err));
-//   },
-
-//   registerNewUser: function (req, res) {
-
-//     // console.log(users.create);
-//     console.log(req.body);
-//     users.create({
-     
-//         email: req.body.email,
-//         password: req.body.password,
-//       })
-//       .then(() => User.users.findOrCreate({
-//         where: {
-//           email: req.body.email
-//         },
-//       }))
-//       .spread((users, created) => {
-//         console.log(user.get({
-//           plain: true
-//         }))
-//         console.log(created)
-
-//       })
-
-//   },
-
-// }
+module.exports = {
+  findAll: function (req, res) {
+    User
+      .find(req.query)
+      .sort({date: 1})
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  findById: function (req, res) {
+   User
+      .findById(req.params.id)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  create: function (req, res) {
+    User
+      .create(req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  update: function (req, res) {
+    User.findOneAndUpdate({
+      _id: req.params.id
+    }, req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  remove: function (req, res) {
+  User
+      .findById({_id: req.params.id})
+      .then(dbModel => dbModel.remove())
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  register: function (req, res) {
+    /* To create a new user */
+    User
+      .register(new User({username: req.body.username}), req.body.password, function (err) {
+        if (err) {
+          console.log('error while user register!', err);
+          return res.status(422).json(err);
+        }
+        console.log('user registered!');
+        res.json(true);
+      });
+  }
+};

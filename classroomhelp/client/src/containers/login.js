@@ -1,45 +1,46 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import React, {Component} from "react";
+import {Redirect} from "react-router-dom";
 import API from "../utilities/API";
 
-class register extends Component {
+class Login extends Component {
   state = {
-    success: false,
+    isLoggedIn: false,
     username: "",
     password: ""
   }
-  
+
   handleInputChange = e => {
     const { name, value } = e.target;
+
     this.setState({
-      [name] : value
+      [name]: value
     })
   }
 
-  // Method to register a new user
-  register = (e) => {
+  // Method to handle user login, should redirect to main page when done
+  login = (e) => {
     e.preventDefault();
     API
-      .register({ username: this.state.username, password: this.state.password })
+      .login({username: this.state.username, password: this.state.password})
       .then(res => {
         console.log(res.data);
-        this.setState({ success: res.data })
+        this.setState({isLoggedIn: true, username: res.data.username, password: res.data.hash})
 
       })
-      .catch(err => console.log(err.response.data));
+      .catch(err => console.log(err.response));
   }
 
   render() {
-    // If Signup was a success, take them to the Login page
-    if (this.state.success) {
-      return <Redirect to="/" />
+    // If user is logged in, take them to main page
+    if (this.state.isLoggedIn) {
+      return <Redirect to="/"/>
     }
 
     return (
       <div className="container my-5">
         <div className="row justify-content-center">
           <form>
-            <h3>Sign Up!</h3>
+            <h3>Login!</h3>
             <div className="form-group">
               <label htmlFor="username">Username</label>
               <input
@@ -48,7 +49,7 @@ class register extends Component {
                 value={this.state.username}
                 onChange={this.handleInputChange}
                 className="form-control"
-                placeholder="Username" />
+                placeholder="Username"/>
               <small id="usernameHelp" className="form-text text-muted">Enter your username</small>
             </div>
             <div className="form-group">
@@ -63,7 +64,7 @@ class register extends Component {
               />
             </div>
 
-            <button type="submit" className="btn btn-success" onClick={this.register}>Sign Up!</button>
+            <button type="submit" className="btn btn-success" onClick={this.login}>Login</button>
           </form>
 
         </div>
@@ -72,4 +73,4 @@ class register extends Component {
   }
 }
 
-export default register;
+export default Login;
