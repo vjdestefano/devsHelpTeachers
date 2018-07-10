@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import API from "../utilities/API";
-// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Route, Link} from "react-router-dom";
 import Collapse from "react-bootstrap/lib/Collapse";
+import "../style/mainpage.css"
+
 
 class testButton extends Component {
 
@@ -81,9 +83,9 @@ class testButton extends Component {
     };
 
     const inlineStyle = {
-      backgroundColor: "black",
-      color: "white",
-      border: "5px"
+      backgroundColor: "#424242",
+      color: "#0288d1",
+      borderColor: "#f57c00",
     };
 
     let string;
@@ -101,10 +103,12 @@ class testButton extends Component {
                   click
                 </button>
                 <Collapse in={this.state.open} timeout={variableStats.timeout}>
+                  
                   <div>
                     <p>This will be reference points for the user</p>
                   </div>
                 </Collapse>
+                
               </li>
             </ul>
           </div>
@@ -150,12 +154,13 @@ class testButton extends Component {
               onChange={this.filterList}
               style={{ visibility: this.state.searchBarView }}
             />
-            <ul className="list-group list-group-flush">
+            <ul className="list-group list-group-flush" >
               {this.state.articles.map(article => (
                 <li
                   key={article._id}
                   className="list-group-item d-flex justify-content-between align-items-center"
                   style={inlineStyle}
+                  id ="testOutput"
                   // onClick = {this.linkClick}
                 >
                   {`Title: ${article.title}`} 
@@ -167,7 +172,7 @@ class testButton extends Component {
                   {`Tagged: ${article.tag}`}
                   <br />
                   <span
-                    className="badge badge-danger badge-pill"><a href = {article.link}> here is the link </a></span>
+                    className="badge badge-danger badge-pill"><a id ="spanTag" href = {article.link}> here is the link </a></span>
                   {/* <span
                         className="badge badge-primary badge-pill"
                         onClick={() => this.saveArticle(article._id)}>Save Article</span> */}
@@ -180,10 +185,11 @@ class testButton extends Component {
         {/* <button
           type="button"
           className="btn btn-danger"
-          onClick={this.articleSearch}
+          transitionTo ="/mathresources"
         >
-          get reddit Response
+          Math Page
         </button> */}
+        <Link  type = "button" className = "btn btn-danger" to="/mathresources">MATH?</Link>
         <button
           type="button"
           className="btn btn-secondary"

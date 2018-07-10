@@ -12,6 +12,18 @@ export default {
     return axios.get("api/search/findlit")
   },
 
+  writingLinks: function(){
+    return axios.get("api/search/findwrite")
+  },
+
+  mathLinks: function(){
+    return axios.get("api/search/findmath")
+  },
+
+  studyLinks: function(){
+    return axios.get("api/search/findStudy")
+  },
+
   articleSearch: function(query) {
     return axios.get("/api/articles", {params: query})
   },
