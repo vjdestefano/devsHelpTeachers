@@ -1,11 +1,16 @@
 import axios from "axios";
 
 export default {
-  // Gets all books
+  
   getAllScrapes: function(){
 
     console.log("i hit the articles Axios")
     return axios.get("/api/search/findreddit");
+  },
+
+  votePositive: function(votes){
+    console.log(votes);
+    return axios.post("api/search/votepos", votes);
   },
 
   literacyLinks: function(){

@@ -275,6 +275,9 @@ router
   });
 
 
+router.route("/votepos")
+.get(scraperController.findId)
+.post(scraperController.votePositive);
 
 router
   .route("/findreddit")

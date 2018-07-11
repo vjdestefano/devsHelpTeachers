@@ -45,6 +45,36 @@ module.exports = {
     .catch(err => res.status(422).json(err));
   },
 
+  votePositive: function(req, res){
+    console.log("this is something cool: " + req.body._id);
+    ScraperWiki
+    .findOneAndUpdate({
+      _id: req.body._id
+    }, {
+      _id: req.body._id,
+      title: req.body.title,
+      link: req.body.link,
+      score: req.body.score,
+      // content: req.body.content,
+    })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+
+  findId: function(req, res){
+    ScraperWiki.findById({_id: req.body._id})
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err));
+  },
+
+  // remove: function (req, res) {
+  //   ScraperWiki
+  //     .findById({ _id: req.body.id })
+  //     .then(dbModel => dbModel.remove())
+  //     .then(dbModel => res.json(dbModel))
+  //     .catch(err => res.status(422).json(err));
+  // }
+
 };
 
 

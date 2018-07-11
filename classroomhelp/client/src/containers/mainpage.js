@@ -101,6 +101,29 @@ class testButton extends Component {
     } else return false
   }
 
+  upvote = (id, score) => {
+    const upvoted = this.state.articles.find(article => (article._id === id));
+    let grabScore = upvoted.score;
+
+    console.log(grabScore);
+    grabScore++;
+    console.log(grabScore);
+   
+   
+    API.votePositive({
+      _id: upvoted._id,
+      title: upvoted.title,
+      link: upvoted.link,
+      score: grabScore,
+    })
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+  }
+
+
+
+
+
 
   render() {
     const variableStats = {
@@ -196,11 +219,13 @@ class testButton extends Component {
                   
                   {`Tagged: ${article.tag}`}
                   <br />
+                  {`Score: ${article.score}`}
+                  <br />
                   <span
                     className="badge badge-danger badge-pill"><a id ="spanTag" href = {article.link}> here is the link </a></span>
-                  {/* <span
+                  <span
                         className="badge badge-primary badge-pill"
-                        onClick={() => this.saveArticle(article._id)}>Save Article</span> */}
+                        onClick={() => this.upvote(article._id, article.score)}>upvote Article</span>
                 </li>
               ))}
             </ul>

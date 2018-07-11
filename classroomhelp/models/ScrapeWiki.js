@@ -27,6 +27,10 @@ const scraperSchema = new Schema({
   },
   tag:{
     type:String,
+  },
+
+  points:{
+    type: Number,
   }
   
 });
