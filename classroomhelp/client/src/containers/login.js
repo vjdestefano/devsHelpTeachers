@@ -17,6 +17,9 @@ class Login extends Component {
     })
   }
 
+  test(){
+    window.location.reload(true);
+}
   // Method to handle user login, should redirect to main page when done
   login = (e) => {
     e.preventDefault();
@@ -33,7 +36,7 @@ class Login extends Component {
   render() {
     // If user is logged in, take them to main page
     if (this.state.isLoggedIn) {
-      return <Redirect to="/"/>
+      return <Redirect to="/" />
     }
 
     return (

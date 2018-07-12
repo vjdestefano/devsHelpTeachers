@@ -7,10 +7,32 @@ class mathPage extends Component {
 state = {
   articles:[],
   scrapeData:'',
+  username:"",
+  isLoggedIn: false,
 
 }
 
 componentDidMount(){
+ this.loadLinks();
+ this.loginCheck();
+};
+
+loginCheck = () => {
+  API
+    .loginCheck()
+    .then(res =>{
+      console.log(res);
+      this.setState({
+      isLoggedIn: res.data.isLoggedIn, username: res.data.username
+      })
+    }) 
+    .catch(err => {
+      console.log("this is an error")
+      console.log(err);
+      this.setState({isLoggedIn: false})
+    })
+};
+loadLinks(){
   API.mathLinks().then(res => {
     console.log(res.data);
     this.setState({
@@ -27,6 +49,10 @@ ifEmpty = obj =>{
   } else return false
 }
 
+getUser(obj){
+console.log(obj)
+
+}
 
 
 
@@ -56,6 +82,9 @@ render(){
     <br />
                   
     {`Tagged: ${article.tag}`}
+    <br />
+
+    {`Score: ${article.points}`}
     <br />
 
      <span

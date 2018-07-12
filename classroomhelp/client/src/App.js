@@ -13,7 +13,7 @@ import login from "./containers/login"
 const App = () => (
   <Router>
     <div>
-      <Navbar/>
+      <Navbar refresh = {this.loginCheck} />
       <Switch>
         <Route exact path="/" component={testButton}/>
         <Route exact path = '/register' component = {register} />

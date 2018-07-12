@@ -46,23 +46,20 @@ module.exports = {
   },
 
   votePositive: function(req, res){
-    console.log("this is something cool: " + req.body._id);
+    console.log("this is something cool: " + req.body.points);
     ScraperWiki
-    .findOneAndUpdate({
-      _id: req.body._id
-    }, {
-      _id: req.body._id,
-      title: req.body.title,
-      link: req.body.link,
-      score: req.body.score,
-      // content: req.body.content,
-    })
+    .findOneAndUpdate(
+      {_id: req.body._id}
+    , {$set:{
+      points: req.body.points,
+    }})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
 
   findId: function(req, res){
-    ScraperWiki.findById({_id: req.body._id})
+    console.log(req.body)
+    ScraperWiki.findById(req.body._id)
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
   },

@@ -14,11 +14,13 @@ class testButton extends Component {
     open: false,
     username:"",
     isLoggedIn: false,
+    beenReloaded: false,
   };
 
   componentDidMount(){
     this.loginCheck();
   }
+
 
   loginCheck = () => {
     API
@@ -101,25 +103,48 @@ class testButton extends Component {
     } else return false
   }
 
+  userObj = (obj) =>{
+    if(obj){
+      console.log(this.state.username);
+      return true;
+    } else{
+      console.log("you arent logged in!")
+      return false;
+    }
+  };
+
   upvote = (id, score) => {
     const upvoted = this.state.articles.find(article => (article._id === id));
-    let grabScore = upvoted.score;
+    let grabScore = upvoted.points;
 
-    console.log(grabScore);
-    grabScore++;
-    console.log(grabScore);
-   
+    grabScore++;   
    
     API.votePositive({
       _id: upvoted._id,
       title: upvoted.title,
       link: upvoted.link,
-      score: grabScore,
+      points: grabScore,
     })
     .then(res => console.log(res))
     .catch(err => console.log(err));
   }
 
+
+  downvote = (id, score) => {
+    const downVoted = this.state.articles.find(article => (article._id === id));
+    let grabScore = downVoted.points;
+
+    grabScore--;   
+   
+    API.voteNegative({
+      _id: downVoted._id,
+      title: downVoted.title,
+      link: downVoted.link,
+      points: grabScore,
+    })
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+  }
 
 
 
@@ -136,37 +161,19 @@ class testButton extends Component {
       borderColor: "#f57c00",
     };
 
-    let string;
+   
 
     return (
       <div className="container-fluid">
         <div className="row">
-          <div className="col-sm-2">
-            <ul>
-              <li style={{ listStyleType: "none" }}>
-                <button
-                  className="btn col-sm-12"
-                  onClick={() => this.setState({ open: !this.state.open })}
-                >
-                  click
-                </button>
-                <Collapse in={this.state.open} timeout={variableStats.timeout}>
-                  
-                  <div>
-                    <p>This will be reference points for the user</p>
-                  </div>
-                </Collapse>
-
-              </li>
-            </ul>
-          </div>
 
           <div className="col-md-8" id="introMain">
-            <p>
+          {this.userObj(this.state.isLoggedIn) ?`logged in as ${this.state.username}`: "Please Login to Vote" }
+            <h3>
               Welcome to Teacher's Wish List, a place for all of your needs.
               Here we have ways for teachers to help students accomplish goals
               and to improve a students experience with their learning career.
-            </p>
+            </h3>
           </div>
         </div>
 
@@ -219,13 +226,19 @@ class testButton extends Component {
                   
                   {`Tagged: ${article.tag}`}
                   <br />
-                  {`Score: ${article.score}`}
+                  {`Score: ${article.points}`}
                   <br />
                   <span
                     className="badge badge-danger badge-pill"><a id ="spanTag" href = {article.link}> here is the link </a></span>
                   <span
                         className="badge badge-primary badge-pill"
-                        onClick={() => this.upvote(article._id, article.score)}>upvote Article</span>
+                        onClick={() => this.upvote(article._id, article.score)}
+                        >upvote Article</span>
+
+                  <span
+                        className="badge badge-primary badge-pill"
+                        onClick={() => this.downvote(article._id, article.score)}
+                        >Downvote Article</span>
                 </li>
               ))}
             </ul>

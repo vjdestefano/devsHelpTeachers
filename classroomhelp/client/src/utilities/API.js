@@ -13,6 +13,12 @@ export default {
     return axios.post("api/search/votepos", votes);
   },
 
+  voteNegative: function(votes){
+    return axios.post("/api/search/voteneg", votes)
+  },
+
+
+
   literacyLinks: function(){
     return axios.get("api/search/findlit")
   },

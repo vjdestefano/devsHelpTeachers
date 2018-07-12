@@ -7,10 +7,34 @@ class litPage extends Component {
 state = {
   articles:[],
   scrapeData:'',
+  username:"",
+  isLoggedIn: false,
 
 }
 
 componentDidMount(){
+ this.loadLinks();
+ this.loginCheck();
+};
+
+loginCheck = () => {
+  API
+    .loginCheck()
+    .then(res =>{
+      console.log(res);
+      this.setState({
+      isLoggedIn: res.data.isLoggedIn, username: res.data.username
+      })
+    }) 
+    .catch(err => {
+      console.log("this is an error")
+      console.log(err);
+      this.setState({isLoggedIn: false})
+    })
+};
+
+
+loadLinks = e => {
   API. literacyLinks().then(res => {
     console.log(res.data);
     this.setState({
@@ -19,7 +43,7 @@ componentDidMount(){
     })
   })
   .catch(err => console.log(err))
-};
+}
 
 ifEmpty = obj =>{
   if(obj.content.length === 0){

@@ -35,6 +35,6 @@ const scraperSchema = new Schema({
   
 });
 
-const ScrapeLiteracy = mongoose.model("ScrapeLiteracy", scraperSchema);
+const ScrapeWiki = mongoose.model("ScrapeWiki", scraperSchema);
 
-module.exports = ScrapeLiteracy;
+module.exports = ScrapeWiki;

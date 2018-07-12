@@ -89,6 +89,8 @@ router
             result.content = $(element).parent("li").text();
   
             result.tag = "Literacy"
+
+            result.points = 0;
   
             // Create a new Article using the `result` object built from scraping
             ScrapeWiki.create(result)
@@ -144,6 +146,8 @@ router
             result.content = $(element).parent("li").text();
   
             result.tag = "Writing"
+
+            result.points = 0;
   
             // Create a new Article using the `result` object built from scraping
             ScrapeWiki.create(result)
@@ -200,6 +204,7 @@ router
   
             result.tag = "Math"
   
+            result.points = 0;
             // Create a new Article using the `result` object built from scraping
             ScrapeWiki.create(result)
               .then(function (dbArticle) {
@@ -252,7 +257,9 @@ router
   
             result.content = $(element).parent("li").text();
   
-            result.tag = "Study Tools"
+            result.tag = "Study Tools";
+
+            result.points = 0;
   
             // Create a new Article using the `result` object built from scraping
             ScrapeWiki.create(result)
@@ -276,6 +283,10 @@ router
 
 
 router.route("/votepos")
+.get(scraperController.findId)
+.post(scraperController.votePositive);
+
+router.route("/voteneg")
 .get(scraperController.findId)
 .post(scraperController.votePositive);
 
