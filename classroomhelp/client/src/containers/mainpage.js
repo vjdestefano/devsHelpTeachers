@@ -159,15 +159,22 @@ class testButton extends Component {
       backgroundColor: "#424242",
       color: "#0288d1",
       borderColor: "#f57c00",
+      
     };
 
    
 
     return (
       <div className="container-fluid">
+      <div className = "row">
+
+      </div>
+
+
+
         <div className="row">
 
-          <div className="col-md-8" id="introMain">
+          <div className="offset-2 col-md-8" id="introMain" >
           {this.userObj(this.state.isLoggedIn) ?`logged in as ${this.state.username}`: "Please Login to Vote" }
             <h3>
               Welcome to Teacher's Wish List, a place for all of your needs.
@@ -177,7 +184,7 @@ class testButton extends Component {
           </div>
         </div>
 
-        <div className="col-5">
+        {/* <div className="col-5">
           <h3 style={{ textDecoration: "underline" }}> Resources for:</h3>
           <ul>
             <li>PORR - </li>
@@ -195,12 +202,9 @@ class testButton extends Component {
             <li>Inclusion - </li>
           </ul>
 
-          <p>
-            {" "}
-            list some resources to help diagnose children with disabilites.{" "}
-          </p>
-        </div>
-        <div className="col-md-8">
+          
+        </div> */}
+        <div className="offset-2 col-md-8">
           <form className="form-inline">
             <input
               className="form-control mr-sm-8"
@@ -221,7 +225,7 @@ class testButton extends Component {
                   {`Title: ${article.title}`} 
                   <br />
                    
-                  {this.ifEmpty(article) ? "There is no Description for that link" : article.content}
+                  {this.ifEmpty(article) ? "No description listed" : article.content}
                   <br />
                   
                   {`Tagged: ${article.tag}`}
@@ -229,7 +233,11 @@ class testButton extends Component {
                   {`Score: ${article.points}`}
                   <br />
                   <span
-                    className="badge badge-danger badge-pill"><a id ="spanTag" href = {article.link}> here is the link </a></span>
+                    className="badge badge-danger badge-pill"><a id ="spanTag"
+                     href = {article.link}
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     > Link to Site</a></span>
                   <span
                         className="badge badge-primary badge-pill"
                         onClick={() => this.upvote(article._id, article.score)}
@@ -246,13 +254,14 @@ class testButton extends Component {
         </div>
 
        
-        <Link  type = "button" className = "btn btn-danger" to="/mathresources">MATH?</Link>
+        <Link  type = "button" className = "btn btn-danger col-sm-3" to="/mathresources">Math Links</Link>
 
-        <Link  type = "button" className = "btn btn-success" to="/litresources">MATH?</Link>
+        <Link  type = "button" className = "btn btn-success col-sm-3" to="/litresources">Literacy Links</Link>
         
         <button
+
           type="button"
-          className="btn btn-secondary"
+          className="btn btn-secondary col-sm-3"
           onClick={this.literacySearch}
         >
           get Wiki Literacy Links

@@ -57,8 +57,8 @@ ifEmpty = obj =>{
 render(){
 
   const inlineStyle = {
-    backgroundColor: "black",
-    color: "white",
+    backgroundColor: "#343a40",
+    color: "#f8fcfe",
     borderColor: "#f57c00",
   };
 
@@ -76,7 +76,7 @@ render(){
     {`Title: ${article.title}`} 
     <br />
                    
-    {this.ifEmpty(article) ? "There is no Description for that link" : article.content}
+    {this.ifEmpty(article) ? "No description listed" : article.content}
     <br />
                   
     {`Tagged: ${article.tag}`}

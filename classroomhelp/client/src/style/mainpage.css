@@ -1,3 +1,9 @@
+#introMain{
+  background-color: #343a40;
+  color: #f8fcfe;
+  margin-top: 2%;
+}
+
 #testOutput{
   margin: 2%;
   border-radius: 8px;
@@ -7,3 +13,7 @@
 #spanTag{
   color: white;
 }
+
+body{
+  background-image: url(https://i.imgur.com/G9uU13g.png)
+} 
