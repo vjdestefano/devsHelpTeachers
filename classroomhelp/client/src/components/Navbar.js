@@ -73,14 +73,7 @@ render(){
           <NavLink className="nav-link" to="/register">Register</NavLink>
         </li>
       </ul>
-    </div >
-
-
-    
-    <div style = {{color: inlineStyle.color}} >
-    {this.state.isLoggedIn ? `logged in as ${this.state.username}` : `Please login to vote :)` }
-  </div>
-  
+    </div >  
   </nav>
 
     )

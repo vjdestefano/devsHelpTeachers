@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import API from "../utilities/API";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import "../style/mainpage.css"
 
 class mathPage extends Component {
 
@@ -49,10 +50,15 @@ ifEmpty = obj =>{
   } else return false
 }
 
-getUser(obj){
-console.log(obj)
-
-}
+userObj = (obj) =>{
+  if(obj){
+    console.log(this.state.username);
+    return true;
+  } else{
+    console.log("you arent logged in!")
+    return false;
+  }
+};
 
 
 
@@ -67,6 +73,12 @@ render(){
   return(
 
    <div className = "container">
+    <div className = "row" id = "userSection">
+      <div className = 'col-12 d-flex justify-content-sm-center'>
+      {this.userObj(this.state.isLoggedIn) ?`logged in as ${this.state.username}`: "Please Login to Vote :)" }
+      </div>
+    </div>
+
    <ul className="list-group list-group-flush">
    {this.state.articles.map(article =>(
 

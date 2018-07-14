@@ -6,16 +6,27 @@ import "../style/mainpage.css"
 
 
 class testButton extends Component {
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      articles: [],
+      searchBarView: "hidden",
+      open: false,
+      username:"",
+      isLoggedIn: false,
+      beenReloaded: false,
+      refresh:"",
+      
+    };
+    this.upvote = this.upvote.bind(this);
+    }
+
+
+    
+  
   //articles translates to scrapes
-  state = {
-    articles: [],
-    searchBarView: "hidden",
-    open: false,
-    username:"",
-    isLoggedIn: false,
-    beenReloaded: false,
-  };
+  
 
   componentDidMount(){
     this.loginCheck();
@@ -65,7 +76,10 @@ class testButton extends Component {
   };
 
   literacySearch = event => {
-    event.preventDefault();
+    if(!event){} else{
+      event.preventDefault();
+    }
+      
     console.log("im here before API");
     API.literacyLinks()
       .then(res => {
@@ -98,10 +112,17 @@ class testButton extends Component {
   };
 
   ifEmpty = obj =>{
-    if(obj.content.length === 0){
+    if(!obj){
+      
+    }
+    else{
+      if(obj.content.length === 0){
       return true
-    } else return false
+    } 
+    return false; 
   }
+}
+  
 
   userObj = (obj) =>{
     if(obj){
@@ -112,6 +133,54 @@ class testButton extends Component {
       return false;
     }
   };
+
+
+  // changeCollection(){
+  //   const inlineStyle = {
+  //     backgroundColor: "#424242",
+  //     color: "#f8fcfe",
+  //     borderColor: "#f57c00",
+      
+  //   };
+  //   let articleList = this.state.articles.map(article => (
+  //     <li
+  //       key={article._id}
+  //       className="list-group-item d-flex justify-content-between align-items-center"
+  //       style={inlineStyle}
+  //       id ="testOutput"
+  //       // onClick = {this.linkClick}
+  //     >
+  //       {`Title: ${article.title}`} 
+  //       <br />
+         
+  //       {this.ifEmpty(article) ? "No description listed" : article.content}
+  //       <br />
+        
+  //       {`Tagged: ${article.tag}`}
+  //       <br />
+  //       {`Score: ${article.points}`}
+  //       <br />
+  //       <span
+  //         className="badge badge-danger badge-pill"><a id ="spanTag"
+  //          href = {article.link}
+  //          target="_blank"
+  //          rel="noopener noreferrer"
+  //          > Link to Site</a></span>
+  //       <span
+  //             className="badge badge-primary badge-pill"
+  //             onClick={() => this.upvote(article._id, article.score)}
+  //             >upvote Article</span>
+
+  //       <span
+  //             className="badge badge-primary badge-pill"
+  //             onClick={() => this.downvote(article._id, article.score)}
+  //             >Downvote Article</span>
+              
+  //     </li>
+  //   ))
+
+  //   return articleList;
+  // }
 
   upvote = (id, score) => {
     const upvoted = this.state.articles.find(article => (article._id === id));
@@ -125,7 +194,14 @@ class testButton extends Component {
       link: upvoted.link,
       points: grabScore,
     })
-    .then(res => console.log(res))
+    .then(res => {
+       
+        this.literacySearch();
+    }
+      
+     
+    
+    )
     .catch(err => console.log(err));
   }
 
@@ -142,40 +218,57 @@ class testButton extends Component {
       link: downVoted.link,
       points: grabScore,
     })
-    .then(res => console.log(res))
+    .then(res => {
+      
+      this.literacySearch();
+      console.log(res)})
     .catch(err => console.log(err));
+  }
+
+  pageRefresh(){
+    if(this.state.refresh === "."){
+      this.setState({
+        refresh: ""
+      })
+    } else {
+      this.setState({
+        refresh: "."
+      })
+    }
   }
 
 
 
-
-
   render() {
-    const variableStats = {
-      timeout: 500000
-    };
+    // const variableStats = {
+    //   timeout: 500000
+    // };
 
     const inlineStyle = {
       backgroundColor: "#424242",
-      color: "#0288d1",
+      color: "#f8fcfe",
       borderColor: "#f57c00",
       
     };
+
+    
 
    
 
     return (
       <div className="container-fluid">
-      <div className = "row">
-
+      <div className = "row" id = "userSection">
+      <div className = 'col-12 d-flex justify-content-sm-center'>
+      {this.userObj(this.state.isLoggedIn) ?`logged in as ${this.state.username}`: "Please Login to Vote :)" }
+      </div>
       </div>
 
 
 
         <div className="row">
 
-          <div className="offset-2 col-md-8" id="introMain" >
-          {this.userObj(this.state.isLoggedIn) ?`logged in as ${this.state.username}`: "Please Login to Vote" }
+          <div className=" col-12 d-flex justify-content-center" id="introMain" >
+            <img src = "https://i.imgur.com/hNGfx3q.png" style ={{paddingRight: "3%"}}/>
             <h3>
               Welcome to Teacher's Wish List, a place for all of your needs.
               Here we have ways for teachers to help students accomplish goals
@@ -184,27 +277,59 @@ class testButton extends Component {
           </div>
         </div>
 
-        {/* <div className="col-5">
-          <h3 style={{ textDecoration: "underline" }}> Resources for:</h3>
-          <ul>
-            <li>PORR - </li>
+       
 
-            <li>CST - </li>
+        <div className = 'row' id = 'literacyLinks'>
+              <div className = 'd-flex justify-content-sm-center col-sm-12' id = "literImage" >
+                <img  type= "image"
+                src="http://via.placeholder.com/700x150"
+                 />
 
-            <li>IEP - </li>
+              </div>
 
-            <li>PT - </li>
+              <div className = " introBody col-sm-12 justify-content-sm-center">
+              <h4> Literacy Helpers</h4>
+              <p> List of a links to sites that specialize in helping young students improve thier literacy
+              </p>
+              <Link  type = "button" className = "btn btn-success col-sm-12" to="/litresources">Literacy Links</Link>
+              </div>
 
-            <li>OT - </li>
 
-            <li>Irns - </li>
+        </div>
 
-            <li>Inclusion - </li>
-          </ul>
 
-          
-        </div> */}
-        <div className="offset-2 col-md-8">
+        <div className = 'row' id = 'mathLinks'>
+            
+
+              <div className = "introBody col-sm-12">
+              <h4> Math Helpers</h4>
+              <p> Online resources to help young students with math.
+              </p>
+              <Link  type = "button" className = "btn btn-danger col-sm-12" to="/mathresources">Math Links</Link>
+              </div>
+
+              <div className = 'd-flex justify-content-sm-center col-sm-12' id = "mathImage" >
+                <img  type= "image"
+                src="http://via.placeholder.com/1000x150"
+                 />
+
+              </div>
+
+
+        </div>
+
+        {this.state.refresh}
+        <button
+
+          type="button"
+          className="btn btn-secondary col-sm-3"
+          onClick={this.literacySearch}
+        >
+          get Wiki Literacy Links
+        </button>
+
+
+        <div className="col-md-12">
           <form className="form-inline">
             <input
               className="form-control mr-sm-8"
@@ -213,7 +338,10 @@ class testButton extends Component {
               onChange={this.filterList}
               style={{ visibility: this.state.searchBarView }}
             />
+
+            {this.state.bullshit}
             <ul className="list-group list-group-flush" >
+            
               {this.state.articles.map(article => (
                 <li
                   key={article._id}
@@ -247,25 +375,12 @@ class testButton extends Component {
                         className="badge badge-primary badge-pill"
                         onClick={() => this.downvote(article._id, article.score)}
                         >Downvote Article</span>
+                        
                 </li>
               ))}
             </ul>
           </form>
         </div>
-
-       
-        <Link  type = "button" className = "btn btn-danger col-sm-3" to="/mathresources">Math Links</Link>
-
-        <Link  type = "button" className = "btn btn-success col-sm-3" to="/litresources">Literacy Links</Link>
-        
-        <button
-
-          type="button"
-          className="btn btn-secondary col-sm-3"
-          onClick={this.literacySearch}
-        >
-          get Wiki Literacy Links
-        </button>
       </div>
     );
   }

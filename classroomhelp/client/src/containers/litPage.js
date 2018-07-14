@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import API from "../utilities/API";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import "../style/mainpage.css"
+
 
 class litPage extends Component {
 
@@ -51,6 +53,15 @@ ifEmpty = obj =>{
   } else return false
 }
 
+userObj = (obj) =>{
+  if(obj){
+    console.log(this.state.username);
+    return true;
+  } else{
+    console.log("you arent logged in!")
+    return false;
+  }
+};
 
 
 
@@ -65,6 +76,12 @@ render(){
   return(
 
    <div className = "container">
+    <div className = "row" id = "userSection">
+      <div className = 'col-12 d-flex justify-content-sm-center'>
+      {this.userObj(this.state.isLoggedIn) ?`logged in as ${this.state.username}`: "Please Login to Vote :)" }
+      </div>
+    </div>
+
    <ul className="list-group list-group-flush">
    {this.state.articles.map(article =>(
 
@@ -81,9 +98,19 @@ render(){
                   
     {`Tagged: ${article.tag}`}
     <br />
+    {`Score: ${article.points}`}
 
      <span
       className="badge badge-danger badge-pill"><a href = {article.link}> here is the link </a></span>
+
+    {this.userObj(this.isLoggedIn) 
+        ?<span
+          className="badge badge-primary badge-pill"
+          onClick={() => this.upvote(article._id, article.score)}
+          >upvote Article</span>
+        :"please login" }
+       
+
 
     </li>
 

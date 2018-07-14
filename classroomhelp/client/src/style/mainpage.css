@@ -1,7 +1,13 @@
 #introMain{
+  background-color: #ffffff;
+  color: #343a40;
+  margin-top: 2%;
+}
+
+#userSection{
   background-color: #343a40;
   color: #f8fcfe;
-  margin-top: 2%;
+  padding-left: 2%;
 }
 
 #testOutput{
@@ -12,6 +18,28 @@
 
 #spanTag{
   color: white;
+}
+
+#literacyLinks{
+  background-color: #f57c00;
+  margin: 3%;
+  
+}
+
+#mathLinks{
+  background-color: #f57c00;
+  margin: 3%;
+}
+
+#literImage{
+  padding-right: 2%;
+}
+
+.introBody{
+  padding-top: 2%;
+  padding-bottom: 2%;
+  background-color: #343a40;
+  color: #f8fcfe;
 }
 
 body{
