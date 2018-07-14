@@ -26,17 +26,12 @@ class App extends Component {
   }
 
 
-
-  // setUser(){
-
-  //   this.set
-  // }
-
-  updatePage(){
+  updatePage(isLoggedIn, usr){
     console.log("this is the update function")
 
     this.setState({
-      bullshit: true
+      isLoggedIn: isLoggedIn,
+      usr: usr
     })
   }
 
@@ -52,7 +47,7 @@ class App extends Component {
           <Route exact path = '/register' component = {Register} />
           <Route exact path = '/login' component = {Login} />
           <Route exact path = "/mathresources" component = {MathPage} />
-          <Route exact path = "/litresources" component = {LitPage} />
+          <Route exact path = "/litresources" render = {() => <LitPage data = {this.state} /> } />
           <Route render={() => (<h1 className="text-center">Page Not Found!</h1>)}/>
         </Switch>
       </div>

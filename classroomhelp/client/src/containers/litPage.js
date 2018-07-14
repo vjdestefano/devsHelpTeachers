@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import API from "../utilities/API";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+
 import "../style/mainpage.css"
 
 
@@ -15,8 +15,9 @@ state = {
 }
 
 componentDidMount(){
- this.loadLinks();
+ 
  this.loginCheck();
+ this.loadLinks();
 };
 
 loginCheck = () => {
@@ -32,6 +33,7 @@ loginCheck = () => {
       console.log("this is an error")
       console.log(err);
       this.setState({isLoggedIn: false})
+      this.loadLinks();
     })
 };
 
@@ -55,13 +57,39 @@ ifEmpty = obj =>{
 
 userObj = (obj) =>{
   if(obj){
-    console.log(this.state.username);
+    
     return true;
   } else{
-    console.log("you arent logged in!")
+  
     return false;
   }
 };
+
+
+
+
+upvote = (id, score) => {
+  const upvoted = this.state.articles.find(article => (article._id === id));
+  let grabScore = upvoted.points;
+
+  grabScore++;   
+ 
+  API.votePositive({
+    _id: upvoted._id,
+    title: upvoted.title,
+    link: upvoted.link,
+    points: grabScore,
+  })
+  .then(res => {
+     
+      this.loadLinks();
+  }
+    
+   
+  
+  )
+  .catch(err => console.log(err));
+}
 
 
 
@@ -78,7 +106,7 @@ render(){
    <div className = "container">
     <div className = "row" id = "userSection">
       <div className = 'col-12 d-flex justify-content-sm-center'>
-      {this.userObj(this.state.isLoggedIn) ?`logged in as ${this.state.username}`: "Please Login to Vote :)" }
+      {this.userObj(this.props.data.isLoggedIn) ?`logged in as ${this.props.data.usr}`: "Please Login to Vote :)" }
       </div>
     </div>
 
@@ -103,14 +131,19 @@ render(){
      <span
       className="badge badge-danger badge-pill"><a href = {article.link}> here is the link </a></span>
 
-    {this.userObj(this.isLoggedIn) 
+    {this.userObj(this.state.isLoggedIn) 
         ?<span
           className="badge badge-primary badge-pill"
           onClick={() => this.upvote(article._id, article.score)}
           >upvote Article</span>
         :"please login" }
        
-
+    {this.userObj(this.state.isLoggedIn) 
+        ?<span
+          className="badge badge-primary badge-pill"
+          onClick={() => this.downvote(article._id, article.score)}
+          >upvote Article</span>
+        :"" }
 
     </li>
 

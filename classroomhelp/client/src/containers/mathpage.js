@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import API from "../utilities/API";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import "../style/mainpage.css"
 
 class mathPage extends Component {

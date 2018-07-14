@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import API from "../utilities/API";
 import { BrowserRouter as Route, Link} from "react-router-dom";
-import Collapse from "react-bootstrap/lib/Collapse";
+
 import "../style/mainpage.css"
 
 
@@ -19,13 +19,12 @@ class testButton extends Component {
       refresh:"",
       
     };
-    this.upvote = this.upvote.bind(this);
+    // this.upvote = this.upvote.bind(this);
     }
 
 
     
   
-  //articles translates to scrapes
   
 
   componentDidMount(){
@@ -40,12 +39,16 @@ class testButton extends Component {
         console.log(res);
         this.setState({
         isLoggedIn: res.data.isLoggedIn, username: res.data.username
-        })
+        });
+        this.props.updatePage(this.state.isLoggedIn, this.state.username)
       }) 
       .catch(err => {
         console.log("this is an error")
         console.log(err);
         this.setState({isLoggedIn: false})
+
+
+        //make a function that takes in 2 variables, send those variables to app.js then set state there
       })
   }
 
@@ -96,7 +99,7 @@ class testButton extends Component {
   filterList = event => {
     event.preventDefault();
 
-    const { name, value } = event.target;
+    const { value } = event.target;
     console.log(value);
     //gets values from inputs
 
@@ -134,53 +137,6 @@ class testButton extends Component {
     }
   };
 
-
-  // changeCollection(){
-  //   const inlineStyle = {
-  //     backgroundColor: "#424242",
-  //     color: "#f8fcfe",
-  //     borderColor: "#f57c00",
-      
-  //   };
-  //   let articleList = this.state.articles.map(article => (
-  //     <li
-  //       key={article._id}
-  //       className="list-group-item d-flex justify-content-between align-items-center"
-  //       style={inlineStyle}
-  //       id ="testOutput"
-  //       // onClick = {this.linkClick}
-  //     >
-  //       {`Title: ${article.title}`} 
-  //       <br />
-         
-  //       {this.ifEmpty(article) ? "No description listed" : article.content}
-  //       <br />
-        
-  //       {`Tagged: ${article.tag}`}
-  //       <br />
-  //       {`Score: ${article.points}`}
-  //       <br />
-  //       <span
-  //         className="badge badge-danger badge-pill"><a id ="spanTag"
-  //          href = {article.link}
-  //          target="_blank"
-  //          rel="noopener noreferrer"
-  //          > Link to Site</a></span>
-  //       <span
-  //             className="badge badge-primary badge-pill"
-  //             onClick={() => this.upvote(article._id, article.score)}
-  //             >upvote Article</span>
-
-  //       <span
-  //             className="badge badge-primary badge-pill"
-  //             onClick={() => this.downvote(article._id, article.score)}
-  //             >Downvote Article</span>
-              
-  //     </li>
-  //   ))
-
-  //   return articleList;
-  // }
 
   upvote = (id, score) => {
     const upvoted = this.state.articles.find(article => (article._id === id));
@@ -240,9 +196,7 @@ class testButton extends Component {
 
 
   render() {
-    // const variableStats = {
-    //   timeout: 500000
-    // };
+  
 
     const inlineStyle = {
       backgroundColor: "#424242",
@@ -348,7 +302,7 @@ class testButton extends Component {
                   className="list-group-item d-flex justify-content-between align-items-center"
                   style={inlineStyle}
                   id ="testOutput"
-                  // onClick = {this.linkClick}
+                
                 >
                   {`Title: ${article.title}`} 
                   <br />
