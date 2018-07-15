@@ -30,6 +30,7 @@ loginCheck = () => {
       console.log("this is an error")
       console.log(err);
       this.setState({isLoggedIn: false})
+      this.loadLinks();
     })
 };
 loadLinks(){
@@ -51,14 +52,52 @@ ifEmpty = obj =>{
 
 userObj = (obj) =>{
   if(obj){
-    console.log(this.state.username);
     return true;
   } else{
-    console.log("you arent logged in!")
     return false;
   }
 };
 
+
+
+  upvote = (id, score) => {
+    const upvoted = this.state.articles.find(article => (article._id === id));
+    let grabScore = upvoted.points;
+
+    grabScore++;
+
+    API.votePositive({
+      _id: upvoted._id,
+      title: upvoted.title,
+      link: upvoted.link,
+      points: grabScore,
+    })
+      .then(res => {
+
+        this.loadLinks();
+      }
+    )
+      .catch(err => console.log(err));
+  }
+
+  downvote = (id, score) => {
+    const downVoted = this.state.articles.find(article => (article._id === id));
+    let grabScore = downVoted.points;
+
+    grabScore--;   
+   
+    API.voteNegative({
+      _id: downVoted._id,
+      title: downVoted.title,
+      link: downVoted.link,
+      points: grabScore,
+    })
+    .then(res => {
+      
+      this.loadLinks();
+      console.log(res)})
+    .catch(err => console.log(err));
+  }
 
 
 render(){
@@ -100,6 +139,20 @@ render(){
 
      <span
       className="badge badge-danger badge-pill"><a href = {article.link}> here is the link </a></span>
+
+      {this.userObj(this.state.isLoggedIn) 
+        ?<span
+          className="badge badge-primary badge-pill"
+          onClick={() => this.upvote(article._id, article.score)}
+          >upvote Article</span>
+        :"please login" }
+       
+      {this.userObj(this.state.isLoggedIn) 
+        ?<span
+          className="badge badge-primary badge-pill"
+          onClick={() => this.downvote(article._id, article.score)}
+          >upvote Article</span>
+        :"" }
 
     </li>
 

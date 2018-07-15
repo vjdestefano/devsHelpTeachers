@@ -25,17 +25,15 @@ class App extends Component {
     this.updatePage = this.updatePage.bind(this);
   }
 
-
+//this is bound to this document but will be called to check if the user object is detected
   updatePage(isLoggedIn, usr){
-    console.log("this is the update function")
-
-    this.setState({
+       this.setState({
       isLoggedIn: isLoggedIn,
-      usr: usr
+      usr:        usr
     })
   }
 
-//component={testButton}
+//use render to allow data to be passed down from the main object
   render(){
 
     return(
@@ -46,7 +44,7 @@ class App extends Component {
     <Route exact path="/"  render = {() => <Mainpage updatePage = {this.updatePage} /> } />
           <Route exact path = '/register' component = {Register} />
           <Route exact path = '/login' component = {Login} />
-          <Route exact path = "/mathresources" component = {MathPage} />
+          <Route exact path = "/mathresources" render = {() => <MathPage data = {this.state} /> } />
           <Route exact path = "/litresources" render = {() => <LitPage data = {this.state} /> } />
           <Route render={() => (<h1 className="text-center">Page Not Found!</h1>)}/>
         </Switch>

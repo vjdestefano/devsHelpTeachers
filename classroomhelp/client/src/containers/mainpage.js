@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import API from "../utilities/API";
 import { BrowserRouter as Route, Link} from "react-router-dom";
+import Velocity from "velocity-animate";
+
 
 import "../style/mainpage.css"
 
 
-class testButton extends Component {
+class mainpage extends Component {
   constructor(props) {
     super(props);
 
@@ -18,14 +20,10 @@ class testButton extends Component {
       beenReloaded: false,
       refresh:"",
       
-    };
-    // this.upvote = this.upvote.bind(this);
+      };
     }
 
 
-    
-  
-  
 
   componentDidMount(){
     this.loginCheck();
@@ -51,6 +49,8 @@ class testButton extends Component {
         //make a function that takes in 2 variables, send those variables to app.js then set state there
       })
   }
+
+ 
 
 
   handleOnChange = event => {
@@ -132,17 +132,27 @@ class testButton extends Component {
       console.log(this.state.username);
       return true;
     } else{
-      console.log("you arent logged in!")
+     
       return false;
     }
   };
 
+  animElement = (element) =>{
+    Velocity(element, {opacity: 0}, 2000);
+  }
 
-  upvote = (id, score) => {
+  upvote = (id, score, index) => {
+    
+  
     const upvoted = this.state.articles.find(article => (article._id === id));
     let grabScore = upvoted.points;
 
-    grabScore++;   
+    let element = document.getElementById(`upSpan-${index}`);
+
+    console.log(element);
+      
+    grabScore++;
+    this.animElement(element);
    
     API.votePositive({
       _id: upvoted._id,
@@ -151,7 +161,7 @@ class testButton extends Component {
       points: grabScore,
     })
     .then(res => {
-       
+    
         this.literacySearch();
     }
       
@@ -162,9 +172,11 @@ class testButton extends Component {
   }
 
 
-  downvote = (id, score) => {
+  downvote = (id, score, index) => {
     const downVoted = this.state.articles.find(article => (article._id === id));
     let grabScore = downVoted.points;
+
+    
 
     grabScore--;   
    
@@ -296,7 +308,7 @@ class testButton extends Component {
             {this.state.bullshit}
             <ul className="list-group list-group-flush" >
             
-              {this.state.articles.map(article => (
+              {this.state.articles.map((article, index) => (
                 <li
                   key={article._id}
                   className="list-group-item d-flex justify-content-between align-items-center"
@@ -321,8 +333,9 @@ class testButton extends Component {
                      rel="noopener noreferrer"
                      > Link to Site</a></span>
                   <span
-                        className="badge badge-primary badge-pill"
-                        onClick={() => this.upvote(article._id, article.score)}
+                        className= "badge badge-primary badge-pill"
+                        id = {`upSpan-${index}`}
+                        onClick={() => this.upvote(article._id, article.score, index)}
                         >upvote Article</span>
 
                   <span
@@ -340,4 +353,4 @@ class testButton extends Component {
   }
 }
 
-export default testButton;
+export default mainpage;

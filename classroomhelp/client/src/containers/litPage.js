@@ -84,12 +84,30 @@ upvote = (id, score) => {
      
       this.loadLinks();
   }
-    
-   
-  
   )
   .catch(err => console.log(err));
 }
+
+
+downvote = (id, score) => {
+  const downVoted = this.state.articles.find(article => (article._id === id));
+  let grabScore = downVoted.points;
+
+  grabScore--;   
+ 
+  API.voteNegative({
+    _id: downVoted._id,
+    title: downVoted.title,
+    link: downVoted.link,
+    points: grabScore,
+  })
+  .then(res => {
+    
+    this.loadLinks();
+    console.log(res)})
+  .catch(err => console.log(err));
+}
+
 
 
 
