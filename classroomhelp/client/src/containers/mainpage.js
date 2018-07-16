@@ -65,7 +65,6 @@ class mainpage extends Component {
 
   articleSearch = event => {
     event.preventDefault();
-    console.log("im here before API");
     API.getAllScrapes()
       .then(res => {
         console.log(res.data);
@@ -82,8 +81,6 @@ class mainpage extends Component {
     if(!event){} else{
       event.preventDefault();
     }
-      
-    console.log("im here before API");
     API.literacyLinks()
       .then(res => {
         console.log(res.data);
@@ -129,30 +126,53 @@ class mainpage extends Component {
 
   userObj = (obj) =>{
     if(obj){
-      console.log(this.state.username);
       return true;
     } else{
-     
       return false;
     }
   };
 
   animElement = (element) =>{
-    Velocity(element, {opacity: 0}, 2000);
+
+    
+    Velocity(element, { 
+     opacity:0 ,
+     width:  [ "100px", [ 1120, 5 ] ],
+     height: 35,
+     color: "#ff0000",
+    
+     },{
+       duration: 500,
+       display: "none",
+       easing: "ease-out",
+    });
+    // Velocity(element, {opacity: 0}, 2000);
+    // Velocity(element, {height: 0}, 2000);
   }
 
-  upvote = (id, score, index) => {
+  hideElement = (element) =>{
+    Velocity(element, {
+      opacity:0
+    },
+    {
+      duration: 500,
+      display: 'none',
+    })
+  }
+
+  upvote = (id, index) => {
     
   
     const upvoted = this.state.articles.find(article => (article._id === id));
     let grabScore = upvoted.points;
+    grabScore++;
 
     let element = document.getElementById(`upSpan-${index}`);
+    let otherElement = document.getElementById(`downSpan-${index}`);
 
-    console.log(element);
       
-    grabScore++;
     this.animElement(element);
+    this.hideElement(otherElement);
    
     API.votePositive({
       _id: upvoted._id,
@@ -161,24 +181,22 @@ class mainpage extends Component {
       points: grabScore,
     })
     .then(res => {
-    
         this.literacySearch();
     }
-      
-     
-    
     )
     .catch(err => console.log(err));
   }
 
 
-  downvote = (id, score, index) => {
+  downvote = (id, index) => {
     const downVoted = this.state.articles.find(article => (article._id === id));
     let grabScore = downVoted.points;
-
+    grabScore--; 
+    let element = document.getElementById(`downSpan-${index}`);
+    let otherElement = document.getElementById(`upSpan-${index}`);
     
-
-    grabScore--;   
+    this.animElement(element);
+    this.hideElement(otherElement);
    
     API.voteNegative({
       _id: downVoted._id,
@@ -327,20 +345,21 @@ class mainpage extends Component {
                   {`Score: ${article.points}`}
                   <br />
                   <span
-                    className="badge badge-danger badge-pill"><a id ="spanTag"
+                    className="badge badge-danger badge-pill justify-content-end"><a id ="spanTag"
                      href = {article.link}
                      target="_blank"
                      rel="noopener noreferrer"
                      > Link to Site</a></span>
                   <span
-                        className= "badge badge-primary badge-pill"
+                        className= "badge badge-primary badge-pill justify-content-end"
                         id = {`upSpan-${index}`}
-                        onClick={() => this.upvote(article._id, article.score, index)}
+                        onClick={() => this.upvote(article._id, index)}
                         >upvote Article</span>
 
                   <span
-                        className="badge badge-primary badge-pill"
-                        onClick={() => this.downvote(article._id, article.score)}
+                        className="badge badge-primary badge-pill justify-content-end"
+                        id = {`downSpan-${index}`}
+                        onClick={() => this.downvote(article._id, index)}
                         >Downvote Article</span>
                         
                 </li>

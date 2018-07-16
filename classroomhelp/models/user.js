@@ -3,6 +3,15 @@ const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
 
 const User = new Schema({
+
+  notes: [
+    {
+      // Store ObjectIds in the array
+      type: Schema.Types.ObjectId,
+      // The ObjectIds will refer to the ids in the Note model
+      ref: "ScrapeWiki"
+    }
+  ],
   /* 
     Define your user information fields for the schema here, DO NOT MAKE "username" and "password" fields, since passport will set those for you
     IF nothing else is put in here, your User collection will look like this automatically because of Passport...
