@@ -159,23 +159,21 @@ class mainpage extends Component {
     })
   }
 
-  saveToUser = (username, id) =>{
-    API.saveTo({username: username, id: id}).then(res =>{
+  saveToUser = (username, monkeyboy) =>{
+    console.log(monkeyboy)
+    API.saveTo({username: username, id: monkeyboy}).then(res =>{
       console.log(res.data);
     })
   }
 
   checkIfVoted(username, id){
+
+    const monkeyboy = id;
+    console.log(monkeyboy)
     API.getUser({username: username}).then(res =>{
-      console.log(res.data)
-      let voted  = res.data.savedHelpers;
-      voted.push(id)
-      console.log(voted);
-      if(voted === undefined || null){
-      this.saveToUser(username, id);
-      } else {
-      console.log("you already have this article upvoted " + voted + id)
-      }
+      
+      this.saveToUser(res.data.username, monkeyboy);
+      
     })
   }
 
@@ -186,7 +184,12 @@ class mainpage extends Component {
     const upvoted = this.state.articles.find(article => (article._id === id));
     let grabScore = upvoted.points;
     grabScore++;
-    this.checkIfVoted(username, id);
+    console.log(upvoted)
+
+
+    this.checkIfVoted(username, upvoted._id);
+
+
     let element = document.getElementById(`upSpan-${index}`);
     let otherElement = document.getElementById(`downSpan-${index}`);
 

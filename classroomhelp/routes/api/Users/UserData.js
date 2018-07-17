@@ -56,6 +56,6 @@ router
 router
   .route('/saveTo')
   .get(usersController.findUsername)
-  .post(usersController.pushHelpers);
+  .post(usersController.saveTo);
 
 module.exports = router;

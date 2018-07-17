@@ -3,13 +3,12 @@ const User = require('../models/user');
 
 module.exports = {
 
-  pushHelpers: function (req, res) {
-    User
-      .update({username: req.body.username},
+  saveTo: function (req, res) {
+ 
+      User.findOneAndUpdate({username: req.body.username},
      { $push:{savedHelpers: req.body.id}})
       .then(dbModel =>{
-        // let voted = dbModel.savedHelpers
-        // res.json(voted);
+       
         res.json(dbModel);
         })
       .catch(err => res.status(422).json(err));
