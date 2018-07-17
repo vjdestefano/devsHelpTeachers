@@ -145,8 +145,7 @@ class mainpage extends Component {
        display: "none",
        easing: "ease-out",
     });
-    // Velocity(element, {opacity: 0}, 2000);
-    // Velocity(element, {height: 0}, 2000);
+   
   }
 
   hideElement = (element) =>{
@@ -253,7 +252,7 @@ class mainpage extends Component {
       )
       .catch(err => console.log(err));
     } else {
-      console.log("you've voted already ass!")
+      console.log("you've voted already")
     }
   }
 

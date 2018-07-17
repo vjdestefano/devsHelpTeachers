@@ -9,7 +9,7 @@ const axios = require("axios");
 const mongoose = require("mongoose");
 
 
-mongoose.connect("mongodb://localhost/schoolZone");
+// mongoose.connect("mongodb://localhost/schoolZone");
 
 
 
