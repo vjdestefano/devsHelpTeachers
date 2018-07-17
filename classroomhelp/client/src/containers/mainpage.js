@@ -168,80 +168,95 @@ class mainpage extends Component {
 
   checkIfVoted(username, id){
 
+    // let indexDepth2 = index;
     let linkId = id;
 
-    API.getUser({username: username}).then(res =>{
+    return API.getUser({username: username}).then(res =>{
 
       let savedHelpers = res.data.savedHelpers;
 
       let searchHelper = savedHelpers.includes(id);
 
       if(searchHelper){
-        console.log("you have already voted on that item")
+        return true;
       } else {
+       
         this.saveToUser(res.data.username, linkId);
+        return false;
         
       }
             
     })
   }
 
-  upvote = (id, index, username) => {
-    
-    console.log(username);
+ async upvote(id, index, username) {
   
     const upvoted = this.state.articles.find(article => (article._id === id));
-    let grabScore = upvoted.points;
-    grabScore++;
-    console.log(upvoted)
 
+    let isVoted = await this.checkIfVoted(username, upvoted._id);
 
-    this.checkIfVoted(username, upvoted._id);
+    if(isVoted === false){
 
+      let grabScore = upvoted.points;
+      grabScore++;
 
-    let element = document.getElementById(`upSpan-${index}`);
-    let otherElement = document.getElementById(`downSpan-${index}`);
-
-      
-    this.animElement(element);
-    this.hideElement(otherElement);
-   
-    API.votePositive({
-      _id: upvoted._id,
-      title: upvoted.title,
-      link: upvoted.link,
-      points: grabScore,
-    })
-    .then(res => {
-        this.literacySearch();
+      let element = document.getElementById(`upSpan-${index}`);
+      let otherElement = document.getElementById(`downSpan-${index}`);
+  
+      this.animElement(element);
+      this.hideElement(otherElement);
+     
+      API.votePositive({
+        _id: upvoted._id,
+        title: upvoted.title,
+        link: upvoted.link,
+        points: grabScore,
+      })
+      .then(res => {
+        
+          this.literacySearch();
+      }
+      )
+      .catch(err => console.log(err));
+    } else {
+      console.log("you've voted already ass!")
     }
-    )
-    .catch(err => console.log(err));
   }
 
 
-  downvote = (id, index) => {
+  async downvote (id, index, username) {
     const downVoted = this.state.articles.find(article => (article._id === id));
-    let grabScore = downVoted.points;
-    grabScore--; 
-    let element = document.getElementById(`downSpan-${index}`);
-    let otherElement = document.getElementById(`upSpan-${index}`);
     
-    this.animElement(element);
-    this.hideElement(otherElement);
-   
-    API.voteNegative({
-      _id: downVoted._id,
-      title: downVoted.title,
-      link: downVoted.link,
-      points: grabScore,
-    })
-    .then(res => {
-      
-      this.literacySearch();
-      console.log(res)})
-    .catch(err => console.log(err));
+    let isVoted = await this.checkIfVoted(username, downVoted._id);
+
+    if(isVoted === false){
+
+      let grabScore = downVoted.points;
+      grabScore--;
+
+      let element = document.getElementById(`upSpan-${index}`);
+      let otherElement = document.getElementById(`downSpan-${index}`);
+  
+      this.animElement(element);
+      this.hideElement(otherElement);
+     
+      API.votePositive({
+        _id: downVoted._id,
+        title: downVoted.title,
+        link: downVoted.link,
+        points: grabScore,
+      })
+      .then(res => {
+        
+          this.literacySearch();
+      }
+      )
+      .catch(err => console.log(err));
+    } else {
+      console.log("you've voted already ass!")
+    }
   }
+
 
   pageRefresh(){
     if(this.state.refresh === "."){
