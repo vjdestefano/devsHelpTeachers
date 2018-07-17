@@ -159,21 +159,30 @@ class mainpage extends Component {
     })
   }
 
-  saveToUser = (username, monkeyboy) =>{
-    console.log(monkeyboy)
-    API.saveTo({username: username, id: monkeyboy}).then(res =>{
+  saveToUser = (username, linkId) =>{
+    console.log(linkId)
+    API.saveTo({username: username, id: linkId}).then(res =>{
       console.log(res.data);
     })
   }
 
   checkIfVoted(username, id){
 
-    const monkeyboy = id;
-    console.log(monkeyboy)
+    let linkId = id;
+
     API.getUser({username: username}).then(res =>{
-      
-      this.saveToUser(res.data.username, monkeyboy);
-      
+
+      let savedHelpers = res.data.savedHelpers;
+
+      let searchHelper = savedHelpers.includes(id);
+
+      if(searchHelper){
+        console.log("you have already voted on that item")
+      } else {
+        this.saveToUser(res.data.username, linkId);
+        
+      }
+            
     })
   }
 
