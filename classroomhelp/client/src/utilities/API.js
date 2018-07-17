@@ -1,6 +1,14 @@
 import axios from "axios";
 
 export default {
+
+  getUser: function(username) {
+    return axios.post("/api/users/username", username)
+  },
+  saveTo: function(username) {
+    console.log(username);
+    return axios.post("/api/users/saveTo", username)
+  },
   
   getAllScrapes: function(){
 

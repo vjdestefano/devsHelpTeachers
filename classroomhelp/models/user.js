@@ -4,7 +4,7 @@ const passportLocalMongoose = require('passport-local-mongoose');
 
 const User = new Schema({
 
-  notes: [
+  savedHelpers: [
     {
       // Store ObjectIds in the array
       type: Schema.Types.ObjectId,

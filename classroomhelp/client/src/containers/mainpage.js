@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import API from "../utilities/API";
-import { BrowserRouter as Route, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 import Velocity from "velocity-animate";
 
 
@@ -24,7 +24,6 @@ class mainpage extends Component {
     }
 
 
-
   componentDidMount(){
     this.loginCheck();
   }
@@ -44,7 +43,6 @@ class mainpage extends Component {
         console.log("this is an error")
         console.log(err);
         this.setState({isLoggedIn: false})
-
 
         //make a function that takes in 2 variables, send those variables to app.js then set state there
       })
@@ -107,6 +105,7 @@ class mainpage extends Component {
     // result = list.filter(a => {
       result = list.filter(a => {
       return a.title.toLowerCase().search(value) != -1;
+     // return a.title.toLowerCase().search(value) != -1;
     });
     this.setState({ articles: result });
   };
@@ -160,13 +159,34 @@ class mainpage extends Component {
     })
   }
 
-  upvote = (id, index) => {
+  saveToUser = (username, id) =>{
+    API.saveTo({username: username, id: id}).then(res =>{
+      console.log(res.data);
+    })
+  }
+
+  checkIfVoted(username, id){
+    API.getUser({username: username}).then(res =>{
+      console.log(res.data)
+      let voted  = res.data.savedHelpers;
+      voted.push(id)
+      console.log(voted);
+      if(voted === undefined || null){
+      this.saveToUser(username, id);
+      } else {
+      console.log("you already have this article upvoted " + voted + id)
+      }
+    })
+  }
+
+  upvote = (id, index, username) => {
     
+    console.log(username);
   
     const upvoted = this.state.articles.find(article => (article._id === id));
     let grabScore = upvoted.points;
     grabScore++;
-
+    this.checkIfVoted(username, id);
     let element = document.getElementById(`upSpan-${index}`);
     let otherElement = document.getElementById(`downSpan-${index}`);
 
@@ -353,13 +373,13 @@ class mainpage extends Component {
                   <span
                         className= "badge badge-primary badge-pill justify-content-end"
                         id = {`upSpan-${index}`}
-                        onClick={() => this.upvote(article._id, index)}
+                        onClick={() => this.upvote(article._id, index, this.state.username)}
                         >upvote Article</span>
 
                   <span
                         className="badge badge-primary badge-pill justify-content-end"
                         id = {`downSpan-${index}`}
-                        onClick={() => this.downvote(article._id, index)}
+                        onClick={() => this.downvote(article._id, index, this.state.username)}
                         >Downvote Article</span>
                         
                 </li>

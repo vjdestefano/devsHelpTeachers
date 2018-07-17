@@ -41,9 +41,21 @@ router
   .put(usersController.update)
   .delete(usersController.remove);
 
-// register a new user ("/api/user/register")
+// register a new user ("/api/users/register")
 router
   .route('/register')
   .post(usersController.register);
+
+
+  //("api/users/username")
+router
+  .route('/username')
+  .get(usersController.findUsername)
+  .post(usersController.findUsername);
+
+router
+  .route('/saveTo')
+  .get(usersController.findUsername)
+  .post(usersController.pushHelpers);
 
 module.exports = router;

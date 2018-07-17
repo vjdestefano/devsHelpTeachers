@@ -2,6 +2,31 @@
 const User = require('../models/user');
 
 module.exports = {
+
+  pushHelpers: function (req, res) {
+    User
+      .update({username: req.body.username},
+     { $push:{savedHelpers: req.body.id}})
+      .then(dbModel =>{
+        // let voted = dbModel.savedHelpers
+        // res.json(voted);
+        res.json(dbModel);
+        })
+      .catch(err => res.status(422).json(err));
+  },
+
+  findUsername: function (req, res) {
+    User
+      .findOne(req.body)
+      .then(dbModel =>{
+        console.log(dbModel);
+        // let voted = dbModel.savedHelpers
+        // res.json(voted);
+        res.json(dbModel);
+        })
+      .catch(err => res.status(422).json(err));
+  },
+
   findAll: function (req, res) {
     User
       .find(req.query)
