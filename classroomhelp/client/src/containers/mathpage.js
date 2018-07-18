@@ -229,8 +229,8 @@ async downvote (id, index, username) {
     let grabScore = downVoted.points;
     grabScore--;
 
-    let element = document.getElementById(`upSpan-${index}`);
-    let otherElement = document.getElementById(`downSpan-${index}`);
+    let element = document.getElementById(`downSpan-${index}`);
+    let otherElement =  document.getElementById(`upSpan-${index}`);
 
     this.animElement(element);
     this.hideElement(otherElement);
@@ -248,7 +248,7 @@ async downvote (id, index, username) {
     )
     .catch(err => console.log(err));
   } else {
-  
+   
   }
 }
 
@@ -267,7 +267,7 @@ render(){
 
    <div className = "container-fluid">
     <div className = "row" id = "userSection">
-      <div className = 'col-12 d-flex justify-content-sm-center'>
+      <div className = 'col-12 d-flex justify-content-center'>
       {this.userObj(this.state.isLoggedIn) ?`logged in as ${this.state.username}`: "Please Login to Vote :)" }
       </div>
     </div>
@@ -288,7 +288,7 @@ render(){
 
     //when using the map function the user must have a "key" tag or else it won't work
     <li key = {article._id}
-        className = "list-group-item d-flex justify-content-between align-items-center"
+        className = "list-group-item"
         style = {inlineStyle}
         id ="testOutput"
     >
@@ -303,9 +303,13 @@ render(){
 
     {`Score: ${article.points}`}
     <br />
-
-     <span
-      className="badge badge-danger badge-pill"><a href = {article.link}> here is the link </a></span>
+      <div className = "col-12 linkSection">
+      <span
+     className="badge badge-danger badge-pill"><a id ="spanTag"
+      href = {article.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      > Link to Site</a></span>
 
       {this.userObj(this.state.isLoggedIn) 
         ?<span
@@ -320,9 +324,13 @@ render(){
         className="badge badge-primary badge-pill"
         id = {`downSpan-${index}`}
         onClick={() => this.downvote(article._id, index, this.state.username)}
-          >upvote Article</span>
+          >Downvote Article</span>
         :"" }
 
+
+      </div>
+
+    
     </li>
 
    ))}

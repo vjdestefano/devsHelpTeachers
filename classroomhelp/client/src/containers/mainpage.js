@@ -227,14 +227,14 @@ class mainpage extends Component {
     const downVoted = this.state.articles.find(article => (article._id === id));
     
     let isVoted = await this.checkIfVoted(username, downVoted._id);
-
+  
     if(isVoted === false){
-
+  
       let grabScore = downVoted.points;
       grabScore--;
-
-      let element = document.getElementById(`upSpan-${index}`);
-      let otherElement = document.getElementById(`downSpan-${index}`);
+  
+      let element = document.getElementById(`downSpan-${index}`);
+      let otherElement =  document.getElementById(`upSpan-${index}`);
   
       this.animElement(element);
       this.hideElement(otherElement);
@@ -252,7 +252,7 @@ class mainpage extends Component {
       )
       .catch(err => console.log(err));
     } else {
-      console.log("you've voted already")
+     
     }
   }
 
@@ -288,7 +288,7 @@ class mainpage extends Component {
     return (
       <div className="container-fluid">
       <div className = "row" id = "userSection">
-      <div className = 'col-12 d-flex justify-content-sm-center'>
+      <div className = 'col-12 d-flex justify-content-center'>
       {this.userObj(this.state.isLoggedIn) ?`logged in as ${this.state.username}`: "Please Login to Vote :)" }
       </div>
       </div>
@@ -298,7 +298,7 @@ class mainpage extends Component {
         <div className="row">
 
           <div className=" col-12 d-flex justify-content-center" id="introMain" >
-            <img src = "https://i.imgur.com/hNGfx3q.png" style ={{paddingRight: "3%"}}/>
+            {/* <img src = "https://i.imgur.com/hNGfx3q.png" style ={{paddingRight: "3%"}}/> */}
             <h3>
               Welcome to Teacher's Wish List, a place for all of your needs.
               Here we have ways for teachers to help students accomplish goals
@@ -310,14 +310,16 @@ class mainpage extends Component {
        
 
         <div className = 'row' id = 'literacyLinks'>
-              <div className = 'd-flex justify-content-sm-center col-sm-12' id = "literImage" >
+              <div className = 'd-flex justify-content-sm-center col-sm-8' id = "literImage" >
                 <img  type= "image"
-                src="http://via.placeholder.com/700x150"
+                src="https://i.imgur.com/Soooqrs.gif"
+                width = "250px"
+                height = "250px"
                  />
 
               </div>
 
-              <div className = " introBody col-sm-12 justify-content-sm-center">
+              <div className = " introBody col-sm-4 justify-content-sm-center">
               <h4> Literacy Helpers</h4>
               <p> List of a links to sites that specialize in helping young students improve thier literacy
               </p>
@@ -331,16 +333,18 @@ class mainpage extends Component {
         <div className = 'row' id = 'mathLinks'>
             
 
-              <div className = "introBody col-sm-12">
+              <div className = "introBody col-sm-3">
               <h4> Math Helpers</h4>
               <p> Online resources to help young students with math.
               </p>
               <Link  type = "button" className = "btn btn-danger col-sm-12" to="/mathresources">Math Links</Link>
               </div>
 
-              <div className = 'd-flex justify-content-sm-center col-sm-12' id = "mathImage" >
+              <div className = 'd-flex justify-content-sm-center col-sm-9' id = "mathImage" >
                 <img  type= "image"
-                src="http://via.placeholder.com/1000x150"
+                src="https://i.imgur.com/66s8VT4.png"
+                width = "250px"
+                height = "250px"
                  />
 
               </div>
@@ -352,7 +356,7 @@ class mainpage extends Component {
         <button
 
           type="button"
-          className="btn btn-secondary col-sm-3"
+          className="btn btn-secondary col-6"
           onClick={this.literacySearch}
         >
           get Wiki Literacy Links
@@ -375,7 +379,7 @@ class mainpage extends Component {
               {this.state.articles.map((article, index) => (
                 <li
                   key={article._id}
-                  className="list-group-item d-flex justify-content-between align-items-center"
+                  className="list-group-item"
                   style={inlineStyle}
                   id ="testOutput"
                 

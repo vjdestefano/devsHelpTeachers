@@ -60,7 +60,7 @@ render(){
 
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <NavLink className="navbar-brand" to="/">Devs Helping Teachers</NavLink>
-    
+        <NavLink className="navbar nav-pills" to="/login">Login</NavLink>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">

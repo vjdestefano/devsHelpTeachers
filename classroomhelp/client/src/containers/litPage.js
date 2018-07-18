@@ -207,8 +207,8 @@ async downvote (id, index, username) {
     let grabScore = downVoted.points;
     grabScore--;
 
-    let element = document.getElementById(`upSpan-${index}`);
-    let otherElement = document.getElementById(`downSpan-${index}`);
+    let element = document.getElementById(`downSpan-${index}`);
+    let otherElement =  document.getElementById(`upSpan-${index}`);
 
     this.animElement(element);
     this.hideElement(otherElement);
@@ -243,10 +243,10 @@ render(){
 
   return(
 
-   <div className = "container-fluid">
+    <div className = "container-fluid">
     <div className = "row" id = "userSection">
-      <div className = 'col-12 d-flex justify-content-sm-center'>
-      {this.userObj(this.props.data.isLoggedIn) ?`logged in as ${this.props.data.usr}`: "Please Login to Vote :)" }
+      <div className = 'col-12 d-flex justify-content-center'>
+      {this.userObj(this.state.isLoggedIn) ?`logged in as ${this.state.username}`: "Please Login to Vote :)" }
       </div>
     </div>
     <div className = "col-sm-6">
@@ -264,40 +264,51 @@ render(){
    <ul className="list-group list-group-flush">
    {this.state.articles.map((article, index) =>(
 
+    //when using the map function the user must have a "key" tag or else it won't work
     <li key = {article._id}
-        className = "list-group-item d-flex justify-content-between align-items-center"
+        className = "list-group-item"
         style = {inlineStyle}
         id ="testOutput"
     >
     {`Title: ${article.title}`} 
     <br />
                    
-    {this.ifEmpty(article) ? "No description listed" : article.content}
+    {this.ifEmpty(article) ? "There is no Description for that link" : article.content}
     <br />
                   
     {`Tagged: ${article.tag}`}
     <br />
+
     {`Score: ${article.points}`}
+    <br />
+      <div className = "col-12 linkSection">
+      <span
+     className="badge badge-danger badge-pill"><a id ="spanTag"
+      href = {article.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      > Link to Site</a></span>
 
-     <span
-      className="badge badge-danger badge-pill"><a href = {article.link}> here is the link </a></span>
-
-    {this.userObj(this.state.isLoggedIn) 
+      {this.userObj(this.state.isLoggedIn) 
         ?<span
-          className="badge badge-primary badge-pill"
-          id = {`upSpan-${index}`}
-          onClick={() => this.upvote(article._id, index, this.state.username)}
+        className="badge badge-primary badge-pill"
+        id = {`upSpan-${index}`}
+        onClick={() => this.upvote(article._id, index, this.state.username)}
           >upvote Article</span>
         :"please login" }
        
-    {this.userObj(this.state.isLoggedIn) 
+      {this.userObj(this.state.isLoggedIn) 
         ?<span
         className="badge badge-primary badge-pill"
         id = {`downSpan-${index}`}
         onClick={() => this.downvote(article._id, index, this.state.username)}
-        > Downvote Article </span>
+          >Downvote Article</span>
         :"" }
 
+
+      </div>
+
+    
     </li>
 
    ))}
