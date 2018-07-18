@@ -32,7 +32,7 @@ loginCheck = () => {
   API
     .loginCheck()
     .then(res =>{
-      console.log(res);
+
       this.setState({
       isLoggedIn: res.data.isLoggedIn, username: res.data.username
       })
@@ -55,7 +55,7 @@ handleOnChange = event => {
 
 loadLinks = e => {
   API. literacyLinks().then(res => {
-    console.log(res.data);
+
     this.setState({
       articles: res.data,
       dataType: res.data[0].tag
@@ -90,7 +90,7 @@ filterList = event => {
   event.preventDefault();
 
   const { value } = event.target;
-  console.log(value);
+
   //gets values from inputs
 
   let list = this.state.articles;
@@ -133,9 +133,9 @@ hideElement = (element) =>{
 }
 
 saveToUser = (username, linkId) =>{
-  console.log(linkId)
+
   API.saveTo({username: username, id: linkId}).then(res =>{
-    console.log(res.data);
+   
   })
 }
 
@@ -192,7 +192,7 @@ async upvote(id, index, username) {
     )
     .catch(err => console.log(err));
   } else {
-    console.log("you've voted already!")
+  
   }
 }
 
@@ -226,7 +226,7 @@ async downvote (id, index, username) {
     )
     .catch(err => console.log(err));
   } else {
-    console.log("you've voted already")
+   
   }
 }
 

@@ -26,11 +26,16 @@ componentDidMount(){
  this.loginCheck();
 };
 
+
+
+
+//shoots a API call to the database to check if there is user
 loginCheck = () => {
   API
     .loginCheck()
     .then(res =>{
-      console.log(res);
+     
+      //if it worked it set the state as bool isLoggedIn and the username from the database
       this.setState({
       isLoggedIn: res.data.isLoggedIn, username: res.data.username
       })
@@ -43,17 +48,21 @@ loginCheck = () => {
     })
 };
 
-handleOnChange = event => {
-  const { name, value } = event.target;
 
+handleOnChange = event => {
+  //creates an object with the data from location of the change
+  const { name, value } = event.target;
+  //sets state as an array with the value
   this.setState({
     [name]: value
   });
 };
 
+
+// this is API call to the database to grab all the links with the "math" tag
 loadLinks(){
   API.mathLinks().then(res => {
-    console.log(res.data);
+  
     this.setState({
       articles: res.data,
       dataType: res.data[0].tag
@@ -62,6 +71,7 @@ loadLinks(){
   .catch(err => console.log(err))
 };
 
+// is used by the conditional rendering to check if database call has anything within "content" section
 ifEmpty = obj =>{
   if(!obj){
     
@@ -74,6 +84,7 @@ ifEmpty = obj =>{
 }
 }
 
+// another conditional rendering function to check if the obj that is passed in contains something or not
 userObj = (obj) =>{
   if(obj){
     return true;
@@ -82,6 +93,7 @@ userObj = (obj) =>{
   }
 };
 
+// calls to the Velocity package to animte the element that is passed in
 animElement = (element) =>{
 
     
@@ -99,6 +111,7 @@ animElement = (element) =>{
  
 }
 
+// this is used to hide the elements after someone has voted on a particular element
 hideElement = (element) =>{
   Velocity(element, {
     opacity:0
@@ -109,47 +122,53 @@ hideElement = (element) =>{
   })
 }
 
+
+// this takes in the handler
 filterList = event => {
   event.preventDefault();
 
+
   const { value } = event.target;
-  console.log(value);
+  
   //gets values from inputs
 
   let list = this.state.articles;
   //sets the list that is going to be filtered
 
   let result = [];
-  // result = list.filter(a => {
+    // returns the value that is spelled the same way
     result = list.filter(a => {
     return a.title.toLowerCase().search(value) != -1;
-   // return a.title.toLowerCase().search(value) != -1;
+  
   });
   this.setState({ articles: result });
 };
 
+
+// uses the save to function to push a linkId into the array that is assocaited with the username
 saveToUser = (username, linkId) =>{
-  console.log(linkId)
+  
   API.saveTo({username: username, id: linkId}).then(res =>{
-    console.log(res.data);
+    
   })
 }
 
 checkIfVoted(username, id){
 
-  // let indexDepth2 = index;
+  //taking a snapshot of the id incase anything happens to the id during data manipualtion
   let linkId = id;
 
   return API.getUser({username: username}).then(res =>{
 
+    //saves the array assocated with the username
     let savedHelpers = res.data.savedHelpers;
-
+    //returns true or false to see if the array includes the ID of the voted on item
     let searchHelper = savedHelpers.includes(id);
 
     if(searchHelper){
       return true;
     } else {
-     
+     //calls the saveTo function to allow to push the data to the users array in the database
       this.saveToUser(res.data.username, linkId);
       return false;
       
@@ -158,23 +177,30 @@ checkIfVoted(username, id){
   })
 }
 
+
+
+//TOOL FOR THE TOOLBELT!
 async upvote(id, index, username) {
   
   const upvoted = this.state.articles.find(article => (article._id === id));
 
+  //allows the action to wait until check if voted is true or false
   let isVoted = await this.checkIfVoted(username, upvoted._id);
 
   if(isVoted === false){
 
+    // grabs the current score of an item and increases it
     let grabScore = upvoted.points;
     grabScore++;
 
+    //can only grab a span tag by the ID
+    //so i created a way to make each one of the span tags have an ID unique to its index
     let element = document.getElementById(`upSpan-${index}`);
     let otherElement = document.getElementById(`downSpan-${index}`);
 
     this.animElement(element);
     this.hideElement(otherElement);
-   
+  //  pushes that score the the database to be saved and updated
     API.votePositive({
       _id: upvoted._id,
       title: upvoted.title,
@@ -182,17 +208,17 @@ async upvote(id, index, username) {
       points: grabScore,
     })
     .then(res => {
-      
+      // resets the state to allow for on-the-fly changes/updating
       this.loadLinks();
     }
     )
     .catch(err => console.log(err));
   } else {
-    console.log("you've voted already!")
+   
   }
 }
 
-
+//see notes for 
 async downvote (id, index, username) {
   const downVoted = this.state.articles.find(article => (article._id === id));
   
@@ -222,7 +248,7 @@ async downvote (id, index, username) {
     )
     .catch(err => console.log(err));
   } else {
-    console.log("you've voted already")
+  
   }
 }
 
@@ -230,6 +256,7 @@ async downvote (id, index, username) {
 
 render(){
 
+  //just like the variables say, used for inline styling for testing
   const inlineStyle = {
     backgroundColor: "#343a40",
     color: "#f8fcfe",
@@ -259,6 +286,7 @@ render(){
    <ul className="list-group list-group-flush">
    {this.state.articles.map((article, index) =>(
 
+    //when using the map function the user must have a "key" tag or else it won't work
     <li key = {article._id}
         className = "list-group-item d-flex justify-content-between align-items-center"
         style = {inlineStyle}
@@ -308,17 +336,8 @@ render(){
   
 }
 
-
-
-
  }
 
-
-
- 
  export default mathPage;
  
 
-
-
- //passport local mongoose
