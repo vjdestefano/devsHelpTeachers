@@ -218,7 +218,7 @@ class mainpage extends Component {
       )
       .catch(err => console.log(err));
     } else {
-      console.log("you've voted already ass!")
+      console.log("you've voted already!")
     }
   }
 
