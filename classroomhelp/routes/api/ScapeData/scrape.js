@@ -155,7 +155,7 @@ router
   
                 console.log(dbArticle);
               
-                  res.json("scrape writing support finished");
+                  res.json(dbArticle);
                
               })
 
