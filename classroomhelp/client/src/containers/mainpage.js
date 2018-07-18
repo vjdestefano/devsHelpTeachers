@@ -302,7 +302,7 @@ class mainpage extends Component {
             <h3>
               Welcome to Teacher's Wish List, a place for all of your needs.
               Here we have ways for teachers to help students accomplish goals
-              and to improve a students experience with their learning career.
+              and to improve a student's experience with their learning career.
             </h3>
           </div>
         </div>
@@ -321,7 +321,7 @@ class mainpage extends Component {
 
               <div className = " introBody col-sm-4 justify-content-sm-center">
               <h4> Literacy Helpers</h4>
-              <p> List of a links to sites that specialize in helping young students improve thier literacy
+              <p> List of links to sites that specialize in helping young students improve thier literacy
               </p>
               <Link  type = "button" className = "btn btn-success col-sm-12" to="/litresources">Literacy Links</Link>
               </div>
