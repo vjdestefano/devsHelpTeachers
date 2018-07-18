@@ -48,7 +48,8 @@
 
 .nav-pills{
   background-color: #f57c00;
-  color: #f8fcfe
+  color: #f8fcfe;
+  margin-left: 1%;
 }
 
 body{

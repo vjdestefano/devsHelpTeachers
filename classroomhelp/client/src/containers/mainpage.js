@@ -297,7 +297,7 @@ class mainpage extends Component {
 
         <div className="row">
 
-          <div className=" col-12 d-flex justify-content-center" id="introMain" >
+          <div className=" col-12 d-flex justify-content" id="introMain" >
             {/* <img src = "https://i.imgur.com/hNGfx3q.png" style ={{paddingRight: "3%"}}/> */}
             <h3>
               Welcome to Teacher's Wish List, a place for all of your needs.
@@ -366,7 +366,7 @@ class mainpage extends Component {
         <div className="col-md-12">
           <form className="form-inline">
             <input
-              className="form-control mr-sm-8"
+              className="form-control mr-sm-12"
               type="text"
               placeholder="Search"
               onChange={this.filterList}

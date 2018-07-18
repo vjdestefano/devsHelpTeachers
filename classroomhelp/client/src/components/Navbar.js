@@ -61,17 +61,18 @@ render(){
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <NavLink className="navbar-brand" to="/">Devs Helping Teachers</NavLink>
         <NavLink className="navbar nav-pills" to="/login">Login</NavLink>
+        <NavLink className="navbar nav-pills" to="/register">Register</NavLink>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
           <NavLink className="nav-link" to="/">Home</NavLink>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
           <NavLink className="nav-link" to="/login">Login</NavLink>
             </li>
             <li className="nav-item">
           <NavLink className="nav-link" to="/register">Register</NavLink>
-        </li>
+        </li> */}
       </ul>
     </div >  
   </nav>
