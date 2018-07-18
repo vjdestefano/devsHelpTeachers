@@ -98,18 +98,16 @@ router
   
                 console.log(dbArticle);
               
-                  res.send("scrape support article 1 complete");
+                  res.redirect("/");
               
               })
 
           }
-       
-         
-
         });
 
         // If we were able to successfully scrape and save an Article, send a message to the client
       }).catch(function (err) {
+        console.log(err)
         // If an error occurred, send it to the client
         return res.json(err);
       });
