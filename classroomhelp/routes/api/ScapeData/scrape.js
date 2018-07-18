@@ -125,7 +125,7 @@ router
     axios
       .get(`http://udltechtoolkit.wikispaces.com/Writing%20tools`)
       .then(function (response) {
-        const data = [];
+        
         var $ = cheerio.load(response.data);
         console.log("this hit the cheerio")
         // Now, we grab every h2 within an article tag, and do the following:
@@ -148,21 +148,9 @@ router
             result.tag = "Writing"
 
             result.points = 0;
-            data.push(result);
+  
             // Create a new Article using the `result` object built from scraping
-            
-          }
-       
-         
-
-        });
-
-        return data
-
-        // If we were able to successfully scrape and save an Article, send a message to the client
-      })
-      .then(articleData => {
-        ScrapeWiki.insertMany(articleData)
+            ScrapeWiki.create(result)
               .then(function (dbArticle) {
   
                 console.log(dbArticle);
@@ -170,10 +158,16 @@ router
                   res.json("scrape writing support finished");
                
               })
-      })
-      .catch(function (err) {
+
+          }
+       
+         
+
+        });
+
+        // If we were able to successfully scrape and save an Article, send a message to the client
+      }).catch(function (err) {
         // If an error occurred, send it to the client
-        console.log(err);
         return res.json(err);
       });
 
