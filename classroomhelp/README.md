@@ -1,7 +1,7 @@
-#Project 3 - DevsHelpTeachers
+# Project 3 - DevsHelpTeachers
 Final Project for Rutger's Web Development Course
 
-##Getting Started!
+## Getting Started!
 This project utilizes NPM Packages
 ```
 -"axios": "^0.18.0",
@@ -33,7 +33,7 @@ and your enviorment should be setup
 npm i
 ```
 
-##Built with
+## Built with
 -**React!**
 -**ES6**
 
