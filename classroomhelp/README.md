@@ -1,6 +1,11 @@
 # Project 3 - DevsHelpTeachers
 Final Project for Rutger's Web Development Course
 
+## Overview
+Make a website that allows a user to browse a list of sites. Which they can vote on, allowing the best sites to be displayed. The users are able to login, create accounts, and vote only once on a certain link.
+
+![Picture](https://i.imgur.com/1AXdF4K.gif)
+
 ## Getting Started!
 This project utilizes NPM Packages
 ```
@@ -34,8 +39,10 @@ npm i
 ```
 
 ## Built with
--**React!**
--**ES6**
+- **React!**
+- **ES6**
+
+![Picture](https://i.imgur.com/NrILd47.gif)
 
 
 
