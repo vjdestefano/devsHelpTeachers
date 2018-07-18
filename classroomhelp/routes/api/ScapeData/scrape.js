@@ -125,7 +125,7 @@ router
     axios
       .get(`http://udltechtoolkit.wikispaces.com/Writing%20tools`)
       .then(function (response) {
-        
+
         var $ = cheerio.load(response.data);
         console.log("this hit the cheerio")
         // Now, we grab every h2 within an article tag, and do the following:
