@@ -4,6 +4,8 @@ Final Project for Rutger's Web Development Course
 ## Overview
 Make a website that allows a user to browse a list of sites. Which they can vote on, allowing the best sites to be displayed. The users are able to login, create accounts, and vote only once on a certain link.
 
+Makes Calls to the mongo Database, and saves data in realtime. Allows for users to vote on certain topic once by collecting the article ID and saving it to the user object. Then when the user clicks on the vote tab it checks to see if the user has already voted on that article.
+
 ![Picture](https://i.imgur.com/1AXdF4K.gif)
 
 ## Getting Started!

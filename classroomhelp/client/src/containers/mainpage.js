@@ -167,7 +167,7 @@ class mainpage extends Component {
 
   checkIfVoted(username, id){
 
-    // let indexDepth2 = index;
+
     let linkId = id;
 
     return API.getUser({username: username}).then(res =>{
