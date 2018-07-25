@@ -124,25 +124,25 @@ hideElement = (element) =>{
 
 
 // this takes in the handler
-filterList = event => {
-  event.preventDefault();
+// filterList = event => {
+//   event.preventDefault();
 
 
-  const { value } = event.target;
+//   const { value } = event.target;
   
-  //gets values from inputs
+//   //gets values from inputs
 
-  let list = this.state.articles;
-  //sets the list that is going to be filtered
+//   let list = this.state.articles;
+//   //sets the list that is going to be filtered
 
-  let result = [];
-    // returns the value that is spelled the same way
-    result = list.filter(a => {
-    return a.title.toLowerCase().search(value) != -1;
+//   let result = [];
+//     // returns the value that is spelled the same way
+//     result = list.filter(a => {
+//     return a.title.toLowerCase().search(value) != -1;
   
-  });
-  this.setState({ articles: result });
-};
+//   });
+//   this.setState({ articles: result });
+// };
 
 
 // uses the save to function to push a linkId into the array that is assocaited with the username

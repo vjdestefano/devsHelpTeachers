@@ -54,7 +54,7 @@ handleOnChange = event => {
 };
 
 loadLinks = e => {
-  API. literacyLinks().then(res => {
+  API.literacyLinks().then(res => {
 
     this.setState({
       articles: res.data,

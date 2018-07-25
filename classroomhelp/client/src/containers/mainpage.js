@@ -91,28 +91,37 @@ class mainpage extends Component {
       .catch(err => console.log(err));
   };
 
+  
   filterList = (event, extraItem) =>{
     event.preventDefault();
+
+    //gets the value from the text box, for easy debugging and saving the value for comparison
     const { value } = event.target;
-    console.log(value);
-
+   
+    //saves a copy of the state to allow for a filter to be applied
     let list  = this.state.articles;
-
+    
+    //where we are going to throw our returns into
     let result = [];
     let prevState = [];
 
-    list.filter(item => {
+    //this begins the process for somebody typing and trying to filter
+    list.filter((item) => {
 
+      //saves a reference of the item.title so its easy to call back to 
       let itemTitle = item.title.toLowerCase();
+      //checking if item.title contains the value of search
       if(itemTitle.includes(value)){
-       result.push(item)
-       console.log(result);
+      //pushes the value into an array where it gets closer to the users interest
+       return result.push(item)
+       
       }
       else {
-        prevState.push(item);
-        console.log(prevState);
+        //any value that does not contain the search value is pushed into here
+         return prevState.push(item);
       }
     })
+    //concating the array, to allow for minimal to no data loss
     this.setState({ articles: result.concat(prevState) });
   }
 
@@ -398,7 +407,7 @@ class mainpage extends Component {
             <input
               className="form-control mr-sm-12"
               type="text"
-              placeholder="Search"
+              placeholder="Search by Title"
               onChange={this.filterList}
               style={{ visibility: this.state.searchBarView }}
             />

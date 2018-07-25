@@ -47,11 +47,11 @@ loginCheck = () => {
 
 render(){
 
-  const inlineStyle = {
-    backgroundColor: "#424242",
-    color: "#0288d1",
-    borderColor: "#f57c00",
-  };
+  // const inlineStyle = {
+  //   backgroundColor: "#424242",
+  //   color: "#0288d1",
+  //   borderColor: "#f57c00",
+  // };
 
 
 
