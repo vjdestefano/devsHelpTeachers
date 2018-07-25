@@ -91,24 +91,54 @@ class mainpage extends Component {
       .catch(err => console.log(err));
   };
 
-  filterList = event => {
+  filterList = (event, extraItem) =>{
     event.preventDefault();
-
     const { value } = event.target;
     console.log(value);
-    //gets values from inputs
 
-    let list = this.state.articles;
-    //sets the list that is going to be filtered
+    let list  = this.state.articles;
 
     let result = [];
-    // result = list.filter(a => {
-      result = list.filter(a => {
-      return a.title.toLowerCase().search(value) != -1;
-     // return a.title.toLowerCase().search(value) != -1;
-    });
-    this.setState({ articles: result });
-  };
+    let prevState = [];
+
+    list.filter(item => {
+
+      let itemTitle = item.title.toLowerCase();
+      if(itemTitle.includes(value)){
+       result.push(item)
+       console.log(result);
+      }
+      else {
+        prevState.push(item);
+        console.log(prevState);
+      }
+    })
+    this.setState({ articles: result.concat(prevState) });
+  }
+
+
+
+  // filterList = event => {
+  //   event.preventDefault();
+
+  //   const { value } = event.target;
+  //   console.log(value);
+  //   //gets values from inputs
+
+  //   let list = this.state.articles;
+  //   //sets the list that is going to be filtered
+
+  //   let result = [];
+  //   // result = list.filter(a => {
+  //     result = list.filter(a => {
+  //     return a.title.toLowerCase().search(value) != -1;
+  //    // return a.title.toLowerCase().search(value) != -1;
+  //   });
+  //   this.setState({ articles: result });
+  // };
+
+
+
 
   ifEmpty = obj =>{
     if(!obj){
