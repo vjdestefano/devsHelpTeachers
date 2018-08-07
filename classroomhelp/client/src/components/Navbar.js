@@ -42,6 +42,23 @@ loginCheck = () => {
     })
 };
 
+changeActiveColor = (e) =>{
+  const { style } = e.target;
+  console.log( style );
+  style.backgroundColor = "#424242";
+  
+  
+ 
+  
+}
+
+changeDeactive = (e) =>{
+  const { style } = e.target;
+  console.log( style );
+  style.backgroundColor = "#f57c00";
+  
+}
+
 
   
 
@@ -59,8 +76,8 @@ render(){
 
 
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <NavLink className="navbar-brand" to="/">Devs Helping Teachers</NavLink>
-        <NavLink className="navbar nav-pills" to="/login">Login</NavLink>
+        <NavLink className="navbar-brand" to="/" onMouseEnter = {this.changeDeactive} onMouseLeave = {this.changeActiveColor}>Devs Helping Teachers</NavLink>
+        <NavLink className="navbar nav-pills" to="/login" onMouseLeave = {this.changeActiveColor}>Login</NavLink>
         <NavLink className="navbar nav-pills" to="/register">Register</NavLink>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
