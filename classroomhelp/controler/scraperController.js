@@ -15,7 +15,7 @@ module.exports = {
   literacyLinks: function(req, res){
     ScraperWiki
     .find({tag:"Literacy"})
-    .sort({title: 1})
+    .sort({points: -1})
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
   },

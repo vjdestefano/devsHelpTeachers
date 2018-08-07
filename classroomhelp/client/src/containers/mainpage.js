@@ -91,7 +91,7 @@ class mainpage extends Component {
       .catch(err => console.log(err));
   };
 
-  
+
   filterList = (event, extraItem) =>{
     event.preventDefault();
 
@@ -124,29 +124,6 @@ class mainpage extends Component {
     //concating the array, to allow for minimal to no data loss
     this.setState({ articles: result.concat(prevState) });
   }
-
-
-
-  // filterList = event => {
-  //   event.preventDefault();
-
-  //   const { value } = event.target;
-  //   console.log(value);
-  //   //gets values from inputs
-
-  //   let list = this.state.articles;
-  //   //sets the list that is going to be filtered
-
-  //   let result = [];
-  //   // result = list.filter(a => {
-  //     result = list.filter(a => {
-  //     return a.title.toLowerCase().search(value) != -1;
-  //    // return a.title.toLowerCase().search(value) != -1;
-  //   });
-  //   this.setState({ articles: result });
-  // };
-
-
 
 
   ifEmpty = obj =>{
