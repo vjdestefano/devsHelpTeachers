@@ -48,6 +48,45 @@ class mainpage extends Component {
       })
   }
 
+  LetterChanges(str) { 
+
+
+    var string = str.toLowerCase().split('');
+    let arr = [];
+    for(let i = 0; i < string.length; i++){
+        
+    let numberIn = string[i].charCodeAt();
+    console.log(numberIn);
+    
+    if(numberIn >= 32 && numberIn <= 64 ){
+        --numberIn;
+    }
+    if(numberIn >= 91 && numberIn <= 96 ){
+       -- numberIn;
+    }
+    if(numberIn == 122){
+        numberIn = 96;
+    }
+    if(numberIn >= 123 && numberIn <= 126 ){
+        --numberIn;
+    }
+   // numberIn++;
+    let letter = String.fromCharCode(++numberIn);
+   
+    if(letter == ("a") || letter == ("e") || letter == ("i") || letter == ("o") || letter == ("u")){
+       let test = letter.toUpperCase();
+        arr.push(test); 
+    }
+    else{
+        arr.push(letter);
+   
+    }
+    
+    }
+      return arr.join(''); 
+             
+    }
+   
  
 
 

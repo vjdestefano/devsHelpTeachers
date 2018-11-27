@@ -89,20 +89,34 @@ userObj = (obj) =>{
 filterList = event => {
   event.preventDefault();
 
-  const { value } = event.target;
+    //gets the value from the text box, for easy debugging and saving the value for comparison
+    const { value } = event.target;
+   
+    //saves a copy of the state to allow for a filter to be applied
+    let list  = this.state.articles;
+    
+    //where we are going to throw our returns into
+    let result = [];
+    let prevState = [];
 
-  //gets values from inputs
+    //this begins the process for somebody typing and trying to filter
+    list.filter((item) => {
 
-  let list = this.state.articles;
-  //sets the list that is going to be filtered
-
-  let result = [];
-  // result = list.filter(a => {
-    result = list.filter(a => {
-    return a.title.toLowerCase().search(value) != -1;
-   // return a.title.toLowerCase().search(value) != -1;
-  });
-  this.setState({ articles: result });
+      //saves a reference of the item.title so its easy to call back to 
+      let itemTitle = item.title.toLowerCase();
+      //checking if item.title contains the value of search
+      if(itemTitle.includes(value)){
+      //pushes the value into an array where it gets closer to the users interest
+       return result.push(item)
+       
+      }
+      else {
+        //any value that does not contain the search value is pushed into here
+         return prevState.push(item);
+      }
+    })
+    //concating the array, to allow for minimal to no data loss
+    this.setState({ articles: result.concat(prevState) });
 };
 
 animElement = (element) =>{
