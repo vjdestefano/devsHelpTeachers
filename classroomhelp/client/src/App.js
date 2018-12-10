@@ -22,6 +22,7 @@ class App extends Component {
     }
 
 
+    
     this.updatePage = this.updatePage.bind(this);
   }
 

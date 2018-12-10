@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import Velocity from "velocity-animate";
 import API from "../utilities/API";
+import VoteSys from "../utilities/VoteSys";
 
 import "../style/mainpage.css"
 
@@ -307,7 +308,7 @@ render(){
         ?<span
         className="badge badge-primary badge-pill"
         id = {`upSpan-${index}`}
-        onClick={() => this.upvote(article._id, index, this.state.username)}
+        onClick={() => VoteSys.upvote(article._id, index, this.state.username, this.state.articles)}
           >upvote Article</span>
         :"please login" }
        
@@ -315,7 +316,7 @@ render(){
         ?<span
         className="badge badge-primary badge-pill"
         id = {`downSpan-${index}`}
-        onClick={() => this.downvote(article._id, index, this.state.username)}
+        onClick={() => VoteSys.downvote(article._id, index, this.state.username, this.state.articles)}
           >Downvote Article</span>
         :"" }
 

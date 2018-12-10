@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import Velocity from "velocity-animate";
 import API from "../utilities/API";
-import "../style/mainpage.css"
+import "../style/mainpage.css";
+import VoteSys from "../utilities/VoteSys";
 
 class mathPage extends Component {
 
@@ -123,26 +124,6 @@ hideElement = (element) =>{
 }
 
 
-// this takes in the handler
-// filterList = event => {
-//   event.preventDefault();
-
-
-//   const { value } = event.target;
-  
-//   //gets values from inputs
-
-//   let list = this.state.articles;
-//   //sets the list that is going to be filtered
-
-//   let result = [];
-//     // returns the value that is spelled the same way
-//     result = list.filter(a => {
-//     return a.title.toLowerCase().search(value) != -1;
-  
-//   });
-//   this.setState({ articles: result });
-// };
 
 
 // uses the save to function to push a linkId into the array that is assocaited with the username
@@ -315,7 +296,7 @@ render(){
         ?<span
         className="badge badge-primary badge-pill"
         id = {`upSpan-${index}`}
-        onClick={() => this.upvote(article._id, index, this.state.username)}
+        onClick={() => VoteSys.upvote(article._id, index, this.state.username, this.state.articles)}
           >upvote Article</span>
         :"please login" }
        
@@ -323,7 +304,7 @@ render(){
         ?<span
         className="badge badge-primary badge-pill"
         id = {`downSpan-${index}`}
-        onClick={() => this.downvote(article._id, index, this.state.username)}
+        onClick={() => VoteSys.downvote(article._id, index, this.state.username, this.state.articles)}
           >Downvote Article</span>
         :"" }
 
