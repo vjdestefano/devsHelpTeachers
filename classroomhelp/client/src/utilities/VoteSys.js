@@ -4,8 +4,45 @@ import Velocity from "velocity-animate";
 
 export default {
 
-
   
+
+
+
+  animElement(element){
+
+    
+    Velocity(element, { 
+     opacity:0 ,
+     width:  [ "100px", [ 1120, 5 ] ],
+     height: 35,
+     color: "#ff0000",
+    
+     },{
+       duration: 500,
+       display: "none",
+       easing: "ease-out",
+    });
+   
+  },
+  
+  hideElement(element){
+    Velocity(element, {
+      opacity:0
+    },
+    {
+      duration: 500,
+      display: 'none',
+    })
+  },
+  
+
+
+  saveToUser(username, linkId){
+
+    API.saveTo({username: username, id: linkId}).then(res =>{
+     
+    })
+  },
 
   async checkIfVoted(username, id){
 
@@ -50,9 +87,12 @@ export default {
         link: upvoted.link,
         points: grabScore,
       })
-      .then(res => {
+      .then(async res => {
+        let tag = res.data.tag;
+      
+        //let listOfLinks = await this.loadLinks(tag);
         
-        this.loadLinks();
+        return tag;
       }
       )
       .catch(err => console.log(err));
@@ -84,9 +124,9 @@ export default {
         link: downVoted.link,
         points: grabScore,
       })
-      .then(res => {
-        
-          this.loadLinks();
+      .then (async res => {
+        let tag = res.data.tag;
+        return tag;
       }
       )
       .catch(err => console.log(err));
@@ -95,7 +135,31 @@ export default {
     }
   },
   
-   
+  //  async loadLinks(dataType){
+
+  //   if(dataType == "Literacy"){
+  //     API.literacyLinks().then( res => {
+  //       let data = res.data;
+  //       let newArray = [data];
+  //       console.log(newArray);
+  //       return newArray;
+  //     })
+  //     .catch(err => console.log(err))
+  //   }
+  //   if(dataType == "Math"){
+  //     API.mathLinks().then(res => {
+  
+  //       return({
+  //         articles: res.data,
+  //         dataType: res.data[0].tag
+  //       })
+  //     })
+  //     .catch(err => console.log(err))
+  //   }
+
+
+  // },
+
 
 }
 

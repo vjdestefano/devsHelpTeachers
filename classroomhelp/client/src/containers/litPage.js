@@ -52,7 +52,8 @@ handleOnChange = event => {
   this.setState({
     [name]: value
   });
-};
+}
+
 
 loadLinks = e => {
   API.literacyLinks().then(res => {
@@ -64,6 +65,35 @@ loadLinks = e => {
   })
   .catch(err => console.log(err))
 }
+
+async ReloadloadLinks(dataType){
+
+  if(dataType == "Literacy"){
+    API.literacyLinks().then( res => {
+      console.log(res);
+      this.setState({
+            articles: res.data,
+            dataType: res.data[0].tag
+        })
+    })
+    .catch(err => console.log(err))
+  }
+  if(dataType == "Math"){
+    API.mathLinks().then(res => {
+
+      this.setState({
+        articles: res.data,
+        dataType: res.data[0].tag
+    })
+    })
+    .catch(err => console.log(err))
+  }
+
+
+}
+
+
+
 
 ifEmpty = obj =>{
   if(!obj){
@@ -120,129 +150,13 @@ filterList = event => {
     this.setState({ articles: result.concat(prevState) });
 };
 
-animElement = (element) =>{
-
-    
-  Velocity(element, { 
-   opacity:0 ,
-   width:  [ "100px", [ 1120, 5 ] ],
-   height: 35,
-   color: "#ff0000",
-  
-   },{
-     duration: 500,
-     display: "none",
-     easing: "ease-out",
-  });
- 
-}
-
-hideElement = (element) =>{
-  Velocity(element, {
-    opacity:0
-  },
-  {
-    duration: 500,
-    display: 'none',
-  })
-}
-
-saveToUser = (username, linkId) =>{
-
-  API.saveTo({username: username, id: linkId}).then(res =>{
-   
-  })
-}
-
-checkIfVoted(username, id){
-
-  // let indexDepth2 = index;
-  let linkId = id;
-
-  return API.getUser({username: username}).then(res =>{
-
-    let savedHelpers = res.data.savedHelpers;
-
-    let searchHelper = savedHelpers.includes(id);
-
-    if(searchHelper){
-      return true;
-    } else {
-     
-      this.saveToUser(res.data.username, linkId);
-      return false;
-      
-    }
-          
-  })
-}
-
-async upvote(id, index, username) {
-  
-  const upvoted = this.state.articles.find(article => (article._id === id));
-
-  let isVoted = await this.checkIfVoted(username, upvoted._id);
-
-  if(isVoted === false){
-
-    let grabScore = upvoted.points;
-    grabScore++;
-
-    let element = document.getElementById(`upSpan-${index}`);
-    let otherElement = document.getElementById(`downSpan-${index}`);
-
-    this.animElement(element);
-    this.hideElement(otherElement);
-   
-    API.votePositive({
-      _id: upvoted._id,
-      title: upvoted.title,
-      link: upvoted.link,
-      points: grabScore,
-    })
-    .then(res => {
-      
-      this.loadLinks();
-    }
-    )
-    .catch(err => console.log(err));
-  } else {
-  
-  }
-}
 
 
-async downvote (id, index, username) {
-  const downVoted = this.state.articles.find(article => (article._id === id));
-  
-  let isVoted = await this.checkIfVoted(username, downVoted._id);
+testEvent (article, index, username, articles) {
+  let test = VoteSys.downvote(article, index, username, articles);
+  console.log(test);
+  this.ReloadloadLinks(test);
 
-  if(isVoted === false){
-
-    let grabScore = downVoted.points;
-    grabScore--;
-
-    let element = document.getElementById(`downSpan-${index}`);
-    let otherElement =  document.getElementById(`upSpan-${index}`);
-
-    this.animElement(element);
-    this.hideElement(otherElement);
-   
-    API.votePositive({
-      _id: downVoted._id,
-      title: downVoted.title,
-      link: downVoted.link,
-      points: grabScore,
-    })
-    .then(res => {
-      
-        this.loadLinks();
-    }
-    )
-    .catch(err => console.log(err));
-  } else {
-   
-  }
 }
 
 
@@ -316,7 +230,7 @@ render(){
         ?<span
         className="badge badge-primary badge-pill"
         id = {`downSpan-${index}`}
-        onClick={() => VoteSys.downvote(article._id, index, this.state.username, this.state.articles)}
+        onClick={() => this.testEvent(article._id, index, this.state.username, this.state.articles)}
           >Downvote Article</span>
         :"" }
 
