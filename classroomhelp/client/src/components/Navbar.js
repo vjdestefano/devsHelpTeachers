@@ -27,14 +27,14 @@ loginCheck = () => {
   API
     .loginCheck()
     .then(res =>{
-      console.log(res);
+      //console.log(res);
       this.setState({
       isLoggedIn: res.data.isLoggedIn, username: res.data.username
       })
     }) 
     .catch(err => {
-      console.log("this is an error")
-      console.log(err);
+      //console.log("this is an error")
+      //console.log(err);
       this.setState({isLoggedIn: false})
     })
 };
@@ -45,20 +45,18 @@ changeActiveColor = (e) =>{
 
   //grabs the element from the DOM with that specific tag, which is being affected
   const { style } = e.target;
-  console.log( style );
+  //console.log( style );
   //changes the color of the within that object 
   style.backgroundColor = "#343a40";
   style.borderBottomColor = "#343a40"
   style.borderBottomWidth = "0px"
   style.borderBottomStyle = "none"
-  
  
-  
 }
 
 changeDeactive = (e) =>{
   const { style } = e.target;
-  console.log( style );
+ // console.log( style );
   style.backgroundColor = "#f57c00";
   style.borderBottomColor = "#ffffff"
   style.borderBottomWidth = "5px"

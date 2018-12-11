@@ -90,7 +90,7 @@ export default {
       .then(async res => {
         let tag = res.data.tag;
       
-        //let listOfLinks = await this.loadLinks(tag);
+       console.log(tag);
         
         return tag;
       }
@@ -103,6 +103,7 @@ export default {
   
 
   async downvote (id, index, username, articles) {
+    let tag;
     const downVoted = articles.find(article => (article._id === id));
     
     let isVoted = await this.checkIfVoted(username, downVoted._id);
@@ -124,8 +125,9 @@ export default {
         link: downVoted.link,
         points: grabScore,
       })
-      .then (async res => {
-        let tag = res.data.tag;
+      .then (res => {
+        tag = await res.data.tag;
+        console.log(tag);
         return tag;
       }
       )
@@ -133,6 +135,7 @@ export default {
     } else {
      
     }
+    
   },
   
   //  async loadLinks(dataType){

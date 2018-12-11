@@ -152,8 +152,8 @@ filterList = event => {
 
 
 
-testEvent (article, index, username, articles) {
-  let test = VoteSys.downvote(article, index, username, articles);
+  async testEvent (article, index, username, articles) {
+  let test = await VoteSys.downvote(article, index, username, articles);
   console.log(test);
   this.ReloadloadLinks(test);
 
