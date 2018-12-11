@@ -126,7 +126,7 @@ export default {
         points: grabScore,
       })
       .then (res => {
-        tag = await res.data.tag;
+        tag = res.data.tag;
         console.log(tag);
         return tag;
       }
